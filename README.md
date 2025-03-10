@@ -4,6 +4,7 @@ A website built using React meant to display your information and allow you to l
 ## How do I use infotainment? 🐱‍💻
 TBA
 ## References 💡
-TBA
+* [Figma design](https://www.figma.com/design/8GSl8ELzVrjUhudOh2S0vL/infotainment?node-id=6-6&t=3T6RfQAnLcjKlcF4-1)
+* More TBA
 ## Images 🖼️
 Coming soon
