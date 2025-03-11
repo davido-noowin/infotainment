@@ -1,19 +1,21 @@
 import { useState } from "react"
 import "./Canvas.css"
-import videoLinksArray from "../assets/videoLinks.json"
+import videoLinksObject from "../assets/videoLinks.json"
 
 export default function Canvas() {
-    const [video, setVideo] = useState(videoLinksArray[0])
+    const videoID = videoLinksObject["River Stream"]
+    const youtubeEmbedURL = "https://www.youtube.com/embed/"
+    const queryString = "?start=777&autoplay=1&loop=1&mute=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&playlist="
+    let finalVideoURL = youtubeEmbedURL + videoID + queryString + videoID
     
     return (
         <main seamless="seamless">
             <iframe 
-                src= "https://www.youtube.com/embed/3DD4pgL5bS4?start=777&autoplay=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&playlist=3DD4pgL5bS4"
-                frameborder="0"
+                src={finalVideoURL}
                 className="canvas"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 referrerPolicy="strict-origin-when-cross-origin" 
-                allowfullscreen
+                allowFullScreen
             >
             </iframe>
         </main>
