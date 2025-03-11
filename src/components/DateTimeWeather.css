@@ -33,10 +33,12 @@ h3 {
 
 .weather-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 20px;
 }
 
 img {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
 }
