@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import "./DateTimeWeather.css"
 import drizzle from "../assets/weatherImages/CloudDrizzle.png"
 import lightning from "../assets/weatherImages/CloudLightning.png"
@@ -7,24 +8,49 @@ import sun from "../assets/weatherImages/Sun.png"
 import wind from "../assets/weatherImages/Wind.png"
 
 export default function DateTimeWeather() {
-    const days = {
-        0 : "SUNDAY",
-        1 : "MONDAY",
-        2 : "TUESDAY",
-        3 : "WEDNESDAY",
-        4 : "THURSDAY",
-        5 : "FRIDAY",
-        6 : "SATURDAY"
-    }
-    const date = new Date();
+    const days = [
+        "SUNDAY",
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY"
+    ]
+
+    const months = [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC"
+    ]
+    
+
+    const [date, setDate ] = useState(new Date());
+    useEffect(() => {
+        var timer = setInterval(() => setDate(new Date()), 1000);
+
+        return function cleanup() {
+            clearInterval(timer);
+        }
+    });
+
     console.log(date);
 
     return (
         <div className="date-time-weather-container">
             <div className="text-container">
                 <h2>-{days[date.getDay()]}-</h2>
-                <h3>11 MAR. 2025</h3>
-                <h3>12:00 PM</h3>
+                <h3>{date.getDay()} {months[date.getMonth()]}. {date.getFullYear()}</h3>
+                <h3>{date.toLocaleTimeString("en-US", {hour: 'numeric', minute: 'numeric', hour12: true})}</h3>
             </div>
             <div className="weather-container">
                 <img src={drizzle} />
