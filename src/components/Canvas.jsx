@@ -3,7 +3,7 @@ import "./Canvas.css"
 import videoLinksObject from "../assets/videoLinks.json"
 
 export default function Canvas() {
-    const videoID = videoLinksObject["River Stream"]
+    const videoID = videoLinksObject["Minecraft Rainy Campfire"]
     const youtubeEmbedURL = "https://www.youtube.com/embed/"
     const queryString = "?start=777&autoplay=1&loop=1&mute=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&playlist="
     let finalVideoURL = youtubeEmbedURL + videoID + queryString + videoID
