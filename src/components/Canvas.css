@@ -1,6 +1,12 @@
+main {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
 
 iframe {
-    position: fixed;
+    position: absolute;
     top: 0px;
     bottom: 0px;
     right: 0px;
@@ -10,12 +16,5 @@ iframe {
     padding: 0;
     overflow: hidden;
     height: 100%;
-    pointer-events: none;
-}
-
-@media screen {
-    main iframe {
-        aspect-ratio: 16/9;
-        pointer-events: none;
-    }
+    aspect-ratio: 16/9;
 }
