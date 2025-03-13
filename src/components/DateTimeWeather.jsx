@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react"
 import { fetchWeatherApi } from 'openmeteo';
 import "./DateTimeWeather.css"
-import weatherDescriptions from "../assets/weatherDescriptions.json"
-import drizzle from "../assets/weatherImages/CloudDrizzle.png"
-import lightning from "../assets/weatherImages/CloudLightning.png"
-import rain from "../assets/weatherImages/CloudRain.png"
-import snow from "../assets/weatherImages/CloudSnow.png"
-import sun from "../assets/weatherImages/Sun.png"
-import wind from "../assets/weatherImages/Wind.png"
+import weatherDescriptions from "../assets/weatherDescriptions.js"
 
 const weatherParams = {
     "latitude": 33.7873,

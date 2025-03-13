@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      
+      <DateTimeWeather />
       <UIBar />
       <Canvas />
     </>
