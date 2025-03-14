@@ -1,0 +1,15 @@
+.video-selector {
+    display: flex;
+    width: 100%;
+    padding-left: 3rem;
+}
+
+select {
+    width: 200px;
+    height: 56px;
+    font-size: large;
+    border-color: none;
+    background-color: #DDDDDD;
+    min-height: 50px;
+    max-height: 50px;
+}

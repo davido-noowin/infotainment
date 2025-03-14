@@ -1,6 +1,5 @@
 import { useState } from "react"
 import "./Canvas.css"
-import videoLinksObject from "../assets/videoLinks.json"
 
 export default function Canvas(props) {
     const videoID = props.videoID
