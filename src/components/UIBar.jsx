@@ -15,6 +15,8 @@ export default function UIBar() {
 
     const youtubePlayerScript = useRef(null);
     const muteButton = useRef(null);
+    const volumeSlider = useRef(null);
+
     let player;
 
     useEffect(() => {
@@ -33,20 +35,31 @@ export default function UIBar() {
         }
 
         function onPlayerReady() {
-            player.setVolume(40);
+            player.setVolume(35);
         }
 
         function onPlayerStateChange() {
             console.log("my state changed");
         }
 
-        function mute() {
-            //console.log(player);
+        function toggleMute() {
+            // console.log(player);
             player.isMuted() ? player.unMute() : player.mute();
         }
 
+        function setVolume(event) {
+            // console.log(player);
+            if (player) {  
+                player.setVolume(event.target.value);
+            }
+        }
+
         if (muteButton && muteButton.current) {
-            muteButton.current.addEventListener('click', mute)
+            muteButton.current.addEventListener('click', toggleMute)
+        }
+
+        if (volumeSlider && volumeSlider.current) {
+            volumeSlider.current.addEventListener('change', setVolume)
         }
 
         return () => {
@@ -54,7 +67,10 @@ export default function UIBar() {
                 script.current.remove();
             }
             if (muteButton.current) {
-                muteButton.current.removeEventListener('click', mute)
+                muteButton.current.removeEventListener('click', toggleMute)
+            }
+            if (volumeSlider.current) {
+                volumeSlider.current.removeEventListener('onChange', setVolume)
             }
         }
     }, [])
@@ -89,19 +105,22 @@ export default function UIBar() {
                     </div>
                     <VideoSelect handleSelect={getVideoIDFromSelector} focusedVideoID={videoIDFromSelector}/>
                     <div className="volume-control">
-                        <button ref={muteButton} onClick={toggleMuteButton}>
-                            <h2>Ambient Noise</h2>
-                            <img src={isMuted ? noVolume : volume}/>
-                        </button>
-                        <div className="slide-container">
-                            <input 
-                                id="volume" 
-                                type="range" 
-                                min="0" 
-                                max="100" 
-                                value={sliderValue} 
-                                onChange={updateVolume}
-                            />
+                        <h2>Ambient Noise</h2>
+                        <div className="sound-button-and-slider-container">
+                            <button ref={muteButton} onClick={toggleMuteButton}>
+                                <img src={isMuted ? noVolume : volume}/>
+                            </button>
+                            <div className="slide-container">
+                                <input 
+                                    ref={volumeSlider}
+                                    id="volume" 
+                                    type="range" 
+                                    min="0" 
+                                    max="100" 
+                                    value={sliderValue} 
+                                    onChange={updateVolume}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

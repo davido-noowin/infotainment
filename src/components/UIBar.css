@@ -42,7 +42,7 @@
     padding: 1rem 3rem;
 }
 
-.ui-bar-header > h2 {
+h2 {
     font-size: 28px;
     color: #DDDDDD;
 }
@@ -56,4 +56,20 @@ button {
     right: 0;
     all: unset;
     cursor: pointer;
+}
+
+.volume-control {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 5rem;
+    padding-left: 48px;
+}
+
+.sound-button-and-slider-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    padding-left: 0.5rem;
 }
