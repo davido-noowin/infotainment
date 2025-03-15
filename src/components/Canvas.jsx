@@ -9,7 +9,9 @@ export default function Canvas(props) {
     
     return (
         <main seamless="seamless">
-            <iframe 
+            <iframe
+                id={props.id}
+                ref={props.ref} 
                 src={finalVideoURL}
                 className="canvas"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

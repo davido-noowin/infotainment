@@ -7,7 +7,6 @@ export default function VideoSelect(props) {
       <option
         value={video.videoID}
         key={video.ID}
-        selected={props.focusedVideoID === video.videoID ? true : false}
       >
         {video.title}
       </option>
@@ -16,7 +15,7 @@ export default function VideoSelect(props) {
 
   return (
     <div className="video-selector">
-      <select name="video" onChange={props.handleSelect}>
+      <select name="video" onChange={props.handleSelect} defaultValue={props.focusedVideoID}>
         <option value="" disabled>
           --Please choose a video--
         </option>
