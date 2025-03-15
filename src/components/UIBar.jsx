@@ -83,6 +83,7 @@ export default function UIBar() {
     function getVideoIDFromSelector(event) {
         setVideoIDFromSelector(event.target.value);
         setIsMuted(true);
+        setSliderValue(35);
     }
 
     function toggleMuteButton() {
