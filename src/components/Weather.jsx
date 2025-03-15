@@ -29,12 +29,8 @@ export default function Weather(props) {
     const [weatherResponse, setWeatherResponse] = useState(null);
 
     useEffect(() => {
-        async function getWeatherInfo(weatherURL, weatherParams) {
-            const weatherResponses = await fetchWeatherApi(weatherURL, weatherParams)
-            .then((data) => data[0]);
-            setWeatherResponse(weatherResponses); 
-        }
-        getWeatherInfo(weatherURL, weatherParams);
+        fetchWeatherApi(weatherURL, weatherParams)
+            .then((data) => setWeatherResponse(data[0]));
     }, [])
 
     let dayOrNight = isDayOrNight();
