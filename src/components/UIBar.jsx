@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import "./UIBar.css"
+import "./styles/UIBar.css"
 import VideoSelect from "./VideoSelect"
 import Canvas from "./Canvas"
 import hamburgerButton from "../assets/uiButtons/hamburgerButton.png"
@@ -11,7 +11,7 @@ export default function UIBar() {
     const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
     const [videoIDFromSelector, setVideoIDFromSelector] = useState("LRmNqKw6Ly0");
     const [isMuted, setIsMuted] = useState(true);
-    const [sliderValue, setSliderValue] = useState(40);
+    const [sliderValue, setSliderValue] = useState(35);
 
     const youtubePlayerScript = useRef(null);
     const muteButton = useRef(null);

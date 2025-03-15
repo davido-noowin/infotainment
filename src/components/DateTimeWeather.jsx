@@ -1,6 +1,6 @@
 import Weather from "./Weather.jsx";
 import DateTime from "./DateTime.jsx";
-import "./DateTimeWeather.css"
+import "./styles/DateTimeWeather.css"
 
 export default function DateTimeWeather() {
     return (

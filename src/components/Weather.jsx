@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { fetchWeatherApi } from 'openmeteo';
-import "./DateTimeWeather.css"
+import "./styles/DateTimeWeather.css"
 import weatherDescriptions from "../assets/weatherDescriptions.js"
 
 const weatherURL = "https://api.open-meteo.com/v1/forecast";

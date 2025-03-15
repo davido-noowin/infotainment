@@ -1,5 +1,5 @@
 import videoLinksObject from "../assets/videoLinks";
-import "./VideoSelect.css";
+import "./styles/VideoSelect.css";
 
 export default function VideoSelect(props) {
   const videoOptions = videoLinksObject.map((video) => {

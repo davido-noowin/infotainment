@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import "./DateTimeWeather.css"
+import "./styles/DateTimeWeather.css"
 
 const days = [
     "SUNDAY",

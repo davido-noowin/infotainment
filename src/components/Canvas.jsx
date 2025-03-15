@@ -1,5 +1,5 @@
 import { useState } from "react"
-import "./Canvas.css"
+import "./styles/Canvas.css"
 
 export default function Canvas(props) {
     const videoID = props.videoID
