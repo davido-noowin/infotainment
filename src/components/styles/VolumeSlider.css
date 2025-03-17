@@ -5,3 +5,27 @@
     gap: 25px;
     padding-left: 0.5rem;
 }
+
+#volume {
+    cursor: pointer;
+    height: 8px;
+    width: 140px;
+    opacity: 0.8;
+    outline: none;
+    border-radius: 25px;
+    accent-color: #676767;
+}
+
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px; 
+    height: 15px; 
+    background: #DDDDDD;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+#volume:hover {
+    opacity: 1;
+}
