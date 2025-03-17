@@ -99,7 +99,10 @@ export default function UIBar() {
                             <img src={closeUIButton}/>
                         </button>
                     </div>
-                    <VideoSelect handleSelect={getVideoIDFromSelector} focusedVideoID={videoIDFromSelector}/>
+                    <VideoSelect 
+                        handleSelect={getVideoIDFromSelector} 
+                        focusedVideoID={videoIDFromSelector}
+                    />
                     <div className="volume-control">
                         <h2>Ambient Noise</h2>
                         <VolumeSlider
@@ -120,7 +123,11 @@ export default function UIBar() {
                     </div>
                 </div>
             }
-            <Canvas id="player" ref={youtubePlayerScript} videoID={videoIDFromSelector} />
+            <Canvas 
+                id="player" 
+                ref={youtubePlayerScript} 
+                videoID={videoIDFromSelector} 
+            />
         </>
          
     )
