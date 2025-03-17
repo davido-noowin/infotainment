@@ -65,11 +65,3 @@ button {
     margin-top: 5rem;
     padding-left: 48px;
 }
-
-.sound-button-and-slider-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 25px;
-    padding-left: 0.5rem;
-}

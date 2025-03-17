@@ -103,22 +103,13 @@ export default function UIBar() {
                     <VideoSelect handleSelect={getVideoIDFromSelector} focusedVideoID={videoIDFromSelector}/>
                     <div className="volume-control">
                         <h2>Ambient Noise</h2>
-                        <div className="sound-button-and-slider-container">
-                            <button ref={muteButton} onClick={toggleMuteButton}>
-                                <img src={isMuted ? noVolume : volume}/>
-                            </button>
-                            <div className="slide-container">
-                                <input 
-                                    ref={volumeSlider}
-                                    id="volume" 
-                                    type="range" 
-                                    min="0" 
-                                    max="100" 
-                                    value={sliderValue} 
-                                    onChange={updateVolume}
-                                />
-                            </div>
-                        </div>
+                        <VolumeSlider
+                            refs={{"muteButton": muteButton, "slider": volumeSlider}} 
+                            isMuted={isMuted}
+                            value={sliderValue} 
+                            handleClick={toggleMuteButton} 
+                            handleChange={updateVolume} 
+                        />
                     </div>
                 </div>
                 :
