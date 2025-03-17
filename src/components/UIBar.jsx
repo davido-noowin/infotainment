@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import "./styles/UIBar.css"
 import VideoSelect from "./VideoSelect"
 import Canvas from "./Canvas"
+import VolumeSlider from "./VolumeSlider"
 import hamburgerButton from "../assets/uiButtons/hamburgerButton.png"
 import closeUIButton from "../assets/uiButtons/closeUIButton.png"
 import volume from "../assets/uiButtons/Volume.png"
@@ -28,18 +29,13 @@ export default function UIBar() {
         window.onYouTubeIframeAPIReady = function() {
             player = new window.YT.Player('player', {
                 events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
+                    'onReady': onPlayerReady
                 }
             });
         }
 
         function onPlayerReady() {
             player.setVolume(35);
-        }
-
-        function onPlayerStateChange() {
-            console.log("my state changed");
         }
 
         function toggleMute() {
