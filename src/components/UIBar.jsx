@@ -5,8 +5,7 @@ import Canvas from "./Canvas"
 import VolumeSlider from "./VolumeSlider"
 import hamburgerButton from "../assets/uiButtons/hamburgerButton.png"
 import closeUIButton from "../assets/uiButtons/closeUIButton.png"
-import volume from "../assets/uiButtons/Volume.png"
-import noVolume from "../assets/uiButtons/NoVolume.png"
+
 
 export default function UIBar() {
     const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
