@@ -1,0 +1,18 @@
+.music-bar-container {
+    display: flex;
+    align-items: center;
+    width: 1080px;
+    height: 115px;
+    left: 30%;
+    background-color: #404040;
+    bottom: 0;
+    z-index: 3;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border-radius: 15px;
+}
+
+.ui-open {
+    left: 25%
+}
