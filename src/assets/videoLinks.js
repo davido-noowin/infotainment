@@ -9,5 +9,6 @@ export default [
     { title: "Beach Sunrise", videoID: "5p_SuO96Jd4", ID: "7" },
     { title: "Minecraft Forest Stream", videoID: "m25ppbdW5Kc", ID: "8" },
     { title: "Seoul Strides", videoID: "mpTYO-8Dw5k", ID: "9"},
+    { title: "Snowfall In Kyoto", videoID: "cwnKBK1r9rk", ID: "10"},
 ];
     
