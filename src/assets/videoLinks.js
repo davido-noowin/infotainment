@@ -7,6 +7,7 @@ export default [
     { title: "New York Stroll", videoID: "eZe4Q_58UTU", ID: "5" },
     { title: "Swiss Rain", videoID: "LFOx-vmYrts", ID: "6" },
     { title: "Beach Sunrise", videoID: "5p_SuO96Jd4", ID: "7" },
-    { title: "Minecraft Forest Stream", videoID: "m25ppbdW5Kc", ID: "8" }
+    { title: "Minecraft Forest Stream", videoID: "m25ppbdW5Kc", ID: "8" },
+    { title: "Seoul Strides", videoID: "mpTYO-8Dw5k", ID: "9"},
 ];
     
