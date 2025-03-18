@@ -17,7 +17,7 @@ export default function UIBar() {
     const muteButton = useRef(null);
     const volumeSlider = useRef(null);
 
-    let player;
+    var player;
 
     useEffect(() => {
         var script = document.createElement('script')
@@ -34,12 +34,16 @@ export default function UIBar() {
         }
 
         function onPlayerReady() {
+            console.log("i am ready")
             player.setVolume(35);
         }
 
         function toggleMute() {
-            // console.log(player);
-            player.isMuted() ? player.unMute() : player.mute();
+            console.log(player);
+            console.log(muteButton)
+            if (player) {
+                player.isMuted() ? player.unMute() : player.mute();
+            }
         }
 
         function setVolume(event) {
@@ -68,7 +72,7 @@ export default function UIBar() {
                 volumeSlider.current.removeEventListener('onChange', setVolume)
             }
         }
-    }, [])
+    }, []);
     
 
     function toggleUIMenu() {

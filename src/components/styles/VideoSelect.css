@@ -12,4 +12,5 @@ select {
     background-color: #DDDDDD;
     min-height: 50px;
     max-height: 50px;
+    border-radius: 10px;
 }

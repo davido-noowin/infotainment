@@ -37,7 +37,7 @@ export default function DateTime() {
     });
     return (
         <div className="text-container">
-            <h2>-{days[date.getDay()]}-</h2>
+            <h2>- {days[date.getDay()]} -</h2>
             <h3>{date.getDate()} {months[date.getMonth()]}. {date.getFullYear()}</h3>
             <h3>{date.toLocaleTimeString("en-US", {hour: 'numeric', minute: 'numeric', hour12: true})}</h3>
         </div>
