@@ -17,7 +17,6 @@ export default function UIBar() {
     const muteButton = useRef(null);
     const volumeSlider = useRef(null);
 
-    var player;
 
     useEffect(() => {
         var script = document.createElement('script')
@@ -26,7 +25,7 @@ export default function UIBar() {
         firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
 
         window.onYouTubeIframeAPIReady = function() {
-            player = new window.YT.Player('player', {
+            globalThis.player = new window.YT.Player('player', {
                 events: {
                     'onReady': onPlayerReady
                 }
@@ -35,21 +34,21 @@ export default function UIBar() {
 
         function onPlayerReady() {
             console.log("i am ready")
-            player.setVolume(35);
+            globalThis.player.setVolume(35);
         }
 
         function toggleMute() {
-            console.log(player);
-            console.log(muteButton)
-            if (player) {
-                player.isMuted() ? player.unMute() : player.mute();
+            // console.log(globalThis.player);
+            // console.log(muteButton)
+            if (globalThis.player) {
+                globalThis.player.isMuted() ? globalThis.player.unMute() : globalThis.player.mute();
             }
         }
 
         function setVolume(event) {
             // console.log(player);
-            if (player) {  
-                player.setVolume(event.target.value);
+            if (globalThis.player) {  
+                globalThis.player.setVolume(event.target.value);
             }
         }
 
@@ -72,7 +71,7 @@ export default function UIBar() {
                 volumeSlider.current.removeEventListener('onChange', setVolume)
             }
         }
-    }, []);
+    }, [uiBarIsOpen]);
     
 
     function toggleUIMenu() {
