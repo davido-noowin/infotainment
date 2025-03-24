@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 600px;
+    width: 515px;
     height: 100%;
     background: rgba(134, 134, 134, 0.5);
     z-index: 3;
@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 600px;
+    width: 515px;
     height: 100%;
     z-index: 3;
     margin: 0;
@@ -31,6 +31,7 @@
     width: 100%;
     align-items: center;
     padding: 1rem 3rem;
+    height: 125px;
 }
 
 .ui-bar-header-no-bg {
@@ -40,6 +41,7 @@
     width: 100%;
     align-items: center;
     padding: 1rem 3rem;
+    height: 125px;
 }
 
 h2 {
@@ -56,6 +58,8 @@ button {
     right: 0;
     all: unset;
     cursor: pointer;
+    width: 32px;
+    height: 32px;
 }
 
 .volume-control {
@@ -64,4 +68,13 @@ button {
     width: 100%;
     margin-top: 5rem;
     padding-left: 48px;
+}
+
+.button-array {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 5%;
+    height: 100%;
+    z-index: 10;
 }

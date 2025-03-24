@@ -5,6 +5,14 @@ import Canvas from "./Canvas"
 import VolumeSlider from "./VolumeSlider"
 import hamburgerButton from "../assets/uiButtons/hamburgerButton.png"
 import closeUIButton from "../assets/uiButtons/closeUIButton.png"
+import fullScreenButton from "../assets/uiButtons/FullScreenButton.png"
+import shrinkScreenButton from "../assets/uiButtons/ShrinkScreenButton.png"
+import musicPlayerButton from "../assets/uiButtons/MusicPlayerButton.png"
+import spotifyButton from "../assets/uiButtons/spotify.png"
+import fullScreenOpaqueButton from "../assets/uiButtons/FullScreenOpaqueButton.png"
+import shrinkScreenOpaqueButton from "../assets/uiButtons/ShrinkScreenOpaqueButton.png"
+import musicPlayerOpaqueButton from "../assets/uiButtons/MusicPlayerOpaqueButton.png"
+import spotifyOpaqueButton from "../assets/uiButtons/SpotifyOpaque.png"
 
 
 export default function UIBar() {
@@ -103,7 +111,13 @@ export default function UIBar() {
                                 <img src={closeUIButton}/>
                             </button>
                             <button>
-                                
+                                <img src={fullScreenButton} />
+                            </button>
+                            <button>
+                                <img src={musicPlayerButton} />
+                            </button>
+                            <button>
+                                <img src={spotifyButton} />
                             </button>
                         </div>
                     </div>
@@ -125,9 +139,20 @@ export default function UIBar() {
                 :
                 <div className="ui-bar-no-bg">
                     <div className="ui-bar-header-no-bg">
-                        <button onClick={toggleUIMenu}>
-                            <img src={hamburgerButton}/>
-                        </button>
+                        <div className="button-array">
+                            <button onClick={toggleUIMenu}>
+                                <img src={hamburgerButton}/>
+                            </button>
+                            <button>
+                                <img src={fullScreenOpaqueButton} />
+                            </button>
+                            <button>
+                                <img src={musicPlayerOpaqueButton} />
+                            </button>
+                            <button>
+                                <img src={spotifyOpaqueButton} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             }
