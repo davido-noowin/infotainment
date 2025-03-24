@@ -98,9 +98,14 @@ export default function UIBar() {
                 <div className="ui-bar">
                     <div className="ui-bar-header">
                         <h2>infotainment</h2>
-                        <button onClick={toggleUIMenu}>
-                            <img src={closeUIButton}/>
-                        </button>
+                        <div className="button-array">
+                            <button onClick={toggleUIMenu}>
+                                <img src={closeUIButton}/>
+                            </button>
+                            <button>
+                                
+                            </button>
+                        </div>
                     </div>
                     <VideoSelect 
                         handleSelect={getVideoIDFromSelector} 

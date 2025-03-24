@@ -1,14 +1,10 @@
-import DateTimeWeather from './components/DateTimeWeather'
-import UIBar from './components/UIBar'
-import MusicBar from './components/MusicBar'
 import './App.css'
+import InterfaceController from './InterfaceController'
 
 function App() {
   return (
     <>
-      <DateTimeWeather />
-      <MusicBar />
-      <UIBar />
+      <InterfaceController />
     </>
   )
 }
