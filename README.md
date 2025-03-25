@@ -11,8 +11,10 @@ A website built using React meant to display your information and allow you to l
 
 6. In the `.env` file, add the following: 
 <br />
+
 `SPOTIFY_CLIENT_ID="my spotify client id"`
 <br />
+
 `SPOTIFY_CLIENT_SECRET="my spotify client secret"` 
 
 7. TBA
