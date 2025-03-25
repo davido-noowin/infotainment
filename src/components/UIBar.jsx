@@ -111,18 +111,18 @@ export default function UIBar({
               </button>
               {handleFullscreen.active ? (
                 <button onClick={handleFullscreen.exit}>
-                  <img src={shrinkScreenButton} />
+                  <img src={shrinkScreenButton} alt="exit full screen" />
                 </button>
               ) : (
                 <button onClick={handleFullscreen.enter}>
-                  <img src={fullScreenButton} />
+                  <img src={fullScreenButton} alt="enter full screen"/>
                 </button>
               )}
               <button onClick={() => toggleMusicPlayer(true)}>
-                <img src={musicPlayerButton} />
+                <img src={musicPlayerButton} alt="music player"/>
               </button>
               <button>
-                <img src={spotifyButton} />
+                <img src={spotifyButton} alt="open spotify"/>
               </button>
             </div>
           </div>
@@ -150,18 +150,18 @@ export default function UIBar({
               </button>
               {handleFullscreen.active ? (
                 <button onClick={handleFullscreen.exit}>
-                  <img src={shrinkScreenOpaqueButton} />
+                  <img src={shrinkScreenOpaqueButton} alt="exit full screen"/>
                 </button>
               ) : (
                 <button onClick={handleFullscreen.enter}>
-                  <img src={fullScreenOpaqueButton} />
+                  <img src={fullScreenOpaqueButton} alt="enter full screen"/>
                 </button>
               )}
               <button onClick={() => toggleMusicPlayer(true)}>
-                <img src={musicPlayerOpaqueButton} />
+                <img src={musicPlayerOpaqueButton} alt="music player"/>
               </button>
               <button>
-                <img src={spotifyOpaqueButton} />
+                <img src={spotifyOpaqueButton} alt="open spotify"/>
               </button>
             </div>
           </div>
