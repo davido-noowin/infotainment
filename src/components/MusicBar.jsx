@@ -4,9 +4,12 @@ import hideMusicPlayer from "../assets/uiButtons/HideMusicPlayer.png"
 export default function MusicBar(props) {
     return (
         <div className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""}`}>
-            <h1>Music Bar works</h1>
-            <button onClick={() => props.toggleMusicPlayer(false)}>
-                close
+            <h1>Login with Spotify</h1>
+            <button 
+                onClick={() => props.toggleMusicPlayer(false)}
+                className="close-player-btn"
+            >
+                <img src={hideMusicPlayer}/>
             </button>
         </div>
     )
