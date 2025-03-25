@@ -9,7 +9,7 @@ export default function MusicBar(props) {
                 onClick={() => props.toggleMusicPlayer(false)}
                 className="close-player-btn"
             >
-                <img src={hideMusicPlayer}/>
+                <img src={hideMusicPlayer} alt="close music player"/>
             </button>
         </div>
     )
