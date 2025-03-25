@@ -1,0 +1,23 @@
+.spotify-container {
+    width: 100%;
+    display: flex;
+}
+
+.music-player-sections {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 340px;
+}
+
+.now-playing-side {
+    display: flex;
+}
+
+.now-playing-side > p {
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 3px 0px 0px 4px;
+}
