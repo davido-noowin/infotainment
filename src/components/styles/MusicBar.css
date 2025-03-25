@@ -3,7 +3,7 @@
     align-items: center;
     width: 1080px;
     height: 115px;
-    left: 30%;
+    left: 25vw;
     background-color: #404040;
     bottom: 0;
     z-index: 3;
@@ -14,5 +14,5 @@
 }
 
 .ui-open {
-    left: 25%
+    left: 10vw;
 }

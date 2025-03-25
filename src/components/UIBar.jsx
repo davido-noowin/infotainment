@@ -15,8 +15,7 @@ import musicPlayerOpaqueButton from "../assets/uiButtons/MusicPlayerOpaqueButton
 import spotifyOpaqueButton from "../assets/uiButtons/SpotifyOpaque.png"
 
 
-export default function UIBar( { handleFullscreen } ) {
-    const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
+export default function UIBar( { handleFullscreen, sideBarOpen, handleSideBarChange } ) {
     const [videoIDFromSelector, setVideoIDFromSelector] = useState("LRmNqKw6Ly0");
     const [isMuted, setIsMuted] = useState(true);
     const [sliderValue, setSliderValue] = useState(35);
@@ -79,12 +78,7 @@ export default function UIBar( { handleFullscreen } ) {
                 volumeSlider.current.removeEventListener('onChange', setVolume)
             }
         }
-    }, [uiBarIsOpen]);
-    
-
-    function toggleUIMenu() {
-        setUIBarIsOpen(prevIsOpen => !prevIsOpen);
-    }
+    }, [sideBarOpen]);
 
     function getVideoIDFromSelector(event) {
         setVideoIDFromSelector(event.target.value);
@@ -99,16 +93,16 @@ export default function UIBar( { handleFullscreen } ) {
     function updateVolume(event) {
         setSliderValue(event.target.value);
     }
-    
+
     
     return (
         <>
-            {uiBarIsOpen ? 
+            {sideBarOpen ? 
                 <div className="ui-bar">
                     <div className="ui-bar-header">
                         <h2>infotainment</h2>
                         <div className="button-array">
-                            <button onClick={toggleUIMenu}>
+                            <button onClick={handleSideBarChange}>
                                 <img src={closeUIButton}/>
                             </button>
                             {
@@ -148,7 +142,7 @@ export default function UIBar( { handleFullscreen } ) {
                 <div className="ui-bar-no-bg">
                     <div className="ui-bar-header-no-bg">
                         <div className="button-array">
-                            <button onClick={toggleUIMenu}>
+                            <button onClick={handleSideBarChange}>
                                 <img src={hamburgerButton}/>
                             </button>
                             {

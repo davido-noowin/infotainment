@@ -2,15 +2,25 @@ import DateTimeWeather from './components/DateTimeWeather'
 import UIBar from './components/UIBar'
 import MusicBar from './components/MusicBar'
 import { FullScreen, useFullScreenHandle } from "react-full-screen"
+import { useState } from "react"
 
 export default function InterfaceController() {
     const handle = useFullScreenHandle();
+    const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
+
+    function toggleSideBar() {
+        setUIBarIsOpen(prev => !prev)
+    }
     return (
         <>
             <FullScreen handle={handle}>
                 <DateTimeWeather />
                 <MusicBar />
-                <UIBar handleFullscreen={handle}/>
+                <UIBar 
+                    handleFullscreen={handle} 
+                    sideBarOpen={uiBarIsOpen} 
+                    handleSideBarChange={toggleSideBar}
+                />
             </FullScreen>
         </>
     )
