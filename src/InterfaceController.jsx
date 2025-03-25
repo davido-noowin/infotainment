@@ -21,10 +21,11 @@ export default function InterfaceController() {
         <>
             <FullScreen handle={handle}>
                 <DateTimeWeather />
-                {musicPlayerIsOpen && <MusicBar 
+                <MusicBar
+                    musicPlayerIsOpen={musicPlayerIsOpen} 
                     sideBarOpen={uiBarIsOpen}
                     toggleMusicPlayer={toggleMusicPlayer}
-                />}
+                />
                 <UIBar 
                     handleFullscreen={handle} 
                     sideBarOpen={uiBarIsOpen} 

@@ -43,13 +43,10 @@ export default function UIBar({
     };
 
     function onPlayerReady() {
-      // console.log("i am ready");
       globalThis.player.setVolume(35);
     }
 
     function toggleMute() {
-      // console.log(globalThis.player);
-      // console.log(muteButton)
       if (globalThis.player) {
         globalThis.player.isMuted()
           ? globalThis.player.unMute()
@@ -58,7 +55,6 @@ export default function UIBar({
     }
 
     function setVolume(event) {
-      // console.log(player);
       if (globalThis.player) {
         globalThis.player.setVolume(event.target.value);
       }

@@ -24,3 +24,7 @@
 .ui-open {
     left: 10vw;
 }
+
+.hide-player {
+    z-index: -1;
+}
