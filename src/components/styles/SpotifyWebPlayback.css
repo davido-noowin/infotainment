@@ -40,3 +40,42 @@
     display: flex;
     padding-right: 2.5vw;
 }
+
+.song-info {
+    display: flex;
+    flex-direction: row;
+    height: 95%;
+    width: 440px;
+    padding-left: 315px;
+}
+
+.song-info > img {
+    width: 75px;
+    position: absolute;
+    height: 75px;
+    top: 30px;
+    left: 5px;
+    border-radius: 5px;
+}
+
+.song-and-artist {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: start;
+}
+
+.song-and-artist > h2 {
+    color: #DDDDDD;
+    margin: 0;
+    font-size: 34px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 320px;
+}
+
+.song-and-artist > h3 {
+    color: #BBBBBB;
+    font-size: 28px;
+}
