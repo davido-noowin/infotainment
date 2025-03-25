@@ -5,7 +5,7 @@ A website built using React meant to display your information and allow you to l
 1. Clone this repository `git clone https://github.com/davido-noowin/infotainment.git`
 2. CD into the directory and create a `.env` file in the root folder
 3. Install dependencies via `npm install`
-4. Register for a client ID and secret on the [Spotify developer dashboard](https://developer.spotify.com/dashboard) **_NOTE_**: You must have a premium Spotify account
+4. Register for a client ID and secret on the [Spotify developer dashboard](https://developer.spotify.com/dashboard) **_NOTE_**: _You must have a premium Spotify account_
 5. In the Spotify developer dashboard, include the following redirect URIs when prompted:
 <img src="./images/redirectURIs.PNG"/>
 
@@ -16,7 +16,9 @@ A website built using React meant to display your information and allow you to l
 
 `SPOTIFY_CLIENT_SECRET="my spotify client secret"` 
 
-7. TBA
+7. Run the application by typing `npm run start` This will fire up the backend server for the Spotify API and the UI.
+
+8. TBA
 
 ## References 💡
 * [Figma design](https://www.figma.com/design/8GSl8ELzVrjUhudOh2S0vL/infotainment?node-id=6-6&t=3T6RfQAnLcjKlcF4-1)
