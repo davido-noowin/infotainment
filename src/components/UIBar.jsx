@@ -15,7 +15,7 @@ import musicPlayerOpaqueButton from "../assets/uiButtons/MusicPlayerOpaqueButton
 import spotifyOpaqueButton from "../assets/uiButtons/SpotifyOpaque.png"
 
 
-export default function UIBar() {
+export default function UIBar( { handleFullscreen } ) {
     const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
     const [videoIDFromSelector, setVideoIDFromSelector] = useState("LRmNqKw6Ly0");
     const [isMuted, setIsMuted] = useState(true);
@@ -100,6 +100,7 @@ export default function UIBar() {
         setSliderValue(event.target.value);
     }
     
+    
     return (
         <>
             {uiBarIsOpen ? 
@@ -110,9 +111,16 @@ export default function UIBar() {
                             <button onClick={toggleUIMenu}>
                                 <img src={closeUIButton}/>
                             </button>
-                            <button>
+                            {
+                            handleFullscreen.active ? 
+                            <button onClick={handleFullscreen.exit}>
+                                <img src={shrinkScreenButton} />
+                            </button>
+                            :
+                            <button onClick={handleFullscreen.enter}>
                                 <img src={fullScreenButton} />
                             </button>
+                            }
                             <button>
                                 <img src={musicPlayerButton} />
                             </button>
@@ -143,9 +151,16 @@ export default function UIBar() {
                             <button onClick={toggleUIMenu}>
                                 <img src={hamburgerButton}/>
                             </button>
-                            <button>
+                            {
+                            handleFullscreen.active ? 
+                            <button onClick={handleFullscreen.exit}>
+                                <img src={shrinkScreenOpaqueButton} />
+                            </button>
+                            :
+                            <button onClick={handleFullscreen.enter}>
                                 <img src={fullScreenOpaqueButton} />
                             </button>
+                            }
                             <button>
                                 <img src={musicPlayerOpaqueButton} />
                             </button>
