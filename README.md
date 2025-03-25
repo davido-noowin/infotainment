@@ -10,7 +10,6 @@ A website built using React meant to display your information and allow you to l
 <img src="./images/redirectURIs.PNG"/>
 
 6. In the `.env` file, add the following: 
-<br />
 
 `SPOTIFY_CLIENT_ID="my spotify client id"`
 <br />
