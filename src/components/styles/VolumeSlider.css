@@ -4,6 +4,7 @@
     align-items: center;
     gap: 25px;
     padding-left: 0.5rem;
+    position: inherit;
 }
 
 #volume {
