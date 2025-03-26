@@ -29,7 +29,9 @@ export default function MusicBar(props) {
 
   return (
     <div
-      className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${!props.musicPlayerIsOpen ? "hide-player" : ""}`}
+      className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${
+        !props.musicPlayerIsOpen ? "hide-player" : ""
+      }`}
     >
       {token === "" ? (
         <SpotifyLogin />
