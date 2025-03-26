@@ -3,7 +3,6 @@ import lightning from "../assets/weatherImages/CloudLightning.png"
 import rain from "../assets/weatherImages/CloudRain.png"
 import snow from "../assets/weatherImages/CloudSnow.png"
 import sun from "../assets/weatherImages/Sun.png"
-import wind from "../assets/weatherImages/Wind.png"
 import cloud from "../assets/weatherImages/Cloud.png"
 import moon from "../assets/weatherImages/Moon.png"
 
