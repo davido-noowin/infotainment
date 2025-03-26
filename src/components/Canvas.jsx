@@ -1,4 +1,3 @@
-import { useState } from "react"
 import "./styles/Canvas.css"
 
 export default function Canvas(props) {
