@@ -31,7 +31,7 @@ export default function Weather(props) {
     useEffect(() => {
         fetchWeatherApi(weatherURL, weatherParams)
             .then((data) => setWeatherResponse(data[0]));
-    }, [])
+    }, [weatherParams])
 
     let dayOrNight = isDayOrNight();
     let weatherCode = ""

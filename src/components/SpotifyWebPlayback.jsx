@@ -93,6 +93,7 @@ export default function SpotifyWebPlayback(props) {
     async function getRefreshToken() {
       const response = await fetch("/auth/refresh-token").catch(handleError);
       if (response.ok) {
+        console.log('new token retrieved')
         setTokenInfo((prev) => ({
           ...prev,
           token: response.access_token,
