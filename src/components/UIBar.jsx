@@ -130,6 +130,7 @@ export default function UIBar({
             <h2>Ambient Noise</h2>
             <VolumeSlider
               refs={{ muteButton: muteButton, slider: volumeSlider }}
+              component="UIBar"
               isMuted={isMuted}
               value={sliderValue}
               handleClick={toggleMuteButton}

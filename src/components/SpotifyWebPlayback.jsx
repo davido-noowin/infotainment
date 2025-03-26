@@ -72,11 +72,6 @@ export default function SpotifyWebPlayback(props) {
             setTrack(state.track_window.current_track);
             setPaused(state.paused);
         
-        
-            player.getCurrentState().then( state => { 
-                (!state)? setActive(false) : setActive(true) 
-            });
-        
         }));
     
         player.connect();
@@ -119,6 +114,22 @@ export default function SpotifyWebPlayback(props) {
         }
     }, []);
 
+    function updateVolume(event) {
+      if (player) {
+        setSliderValue(event.target.value);
+        player.setVolume(event.target.value / 100);
+      }
+    }
+
+    function toggleMuteButton() {
+      if (player) {
+        setIsMuted((prevIsMuted) => {
+          !prevIsMuted ? player.setVolume(0) : player.setVolume(sliderValue / 100);
+          return !prevIsMuted;
+        });
+      }
+    }
+
     return (
         <div className="spotify-container">
             <div className="music-player-sections">
@@ -142,27 +153,21 @@ export default function SpotifyWebPlayback(props) {
                 <div className="media-controls">
                     <button
                         onClick={() => {
-                            player.previousTrack().then(() => {
-                              console.log('Set to previous track!');
-                            });
+                            player.previousTrack();
                           }}
                     >
                         <img src={skipBack} alt="previous track"/>
                     </button>
                     <button
                         onClick={() => {
-                            player.togglePlay().then(() => {
-                              console.log('toggled play')
-                            });
+                            player.togglePlay();
                           }}
                     >
                         <img src={isPaused ? play : pause} alt={isPaused ? "PLAY" : "PAUSE"}/>
                     </button>
                     <button
                         onClick={() => {
-                            player.nextTrack().then(() => {
-                              console.log('Skipped to next track!');
-                            });
+                            player.nextTrack();
                           }}
                     >
                     <img src={skipForward} alt="next track"/>
@@ -173,6 +178,8 @@ export default function SpotifyWebPlayback(props) {
                         refs={{ muteButton: muteButton, slider: volumeSlider }}
                         isMuted={isMuted}
                         value={sliderValue}
+                        handleClick={toggleMuteButton}
+                        handleChange={updateVolume}
                     />
                 </div>
             </div>
