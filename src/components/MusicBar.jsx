@@ -15,7 +15,7 @@ export default function MusicBar(props) {
       const response = await fetch("/auth/token").catch(handleError);
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
+        // console.log(json);
         setToken(json.access_token);
         setRefreshToken(json.refresh_token);
         setExpiresIn(json.expires_in * 1000);

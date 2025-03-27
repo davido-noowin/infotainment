@@ -64,9 +64,9 @@ app.get('/auth/callback', (req, res) => {
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       // console.log(body.access_token, '\n', body.refresh_token, '\n', body.expires_in, '\n', body.scope)
-      access_token = body.access_token;
-      refresh_token = body.refresh_token;
-      expires_in = body.expires_in
+      global.access_token = body.access_token;
+      global.refresh_token = body.refresh_token;
+      global.expires_in = body.expires_in
       res.redirect('/')
     }
     else {
@@ -78,9 +78,9 @@ app.get('/auth/callback', (req, res) => {
 
 app.get('/auth/token', (req, res) => {
   res.json({ 
-    access_token: access_token,
-    refresh_token: refresh_token,
-    expires_in: expires_in
+    access_token: global.access_token,
+    refresh_token: global.refresh_token,
+    expires_in: global.expires_in
   })
 })
 
@@ -95,19 +95,19 @@ app.get('/auth/refresh-token', (req, res) => {
     },
     form: {
       grant_type: 'refresh_token',
-      refresh_token: refresh_token
+      refresh_token: global.refresh_token
     },
     json: true
   };
 
   request.post(authOptions, function(error, response, body) {
     if (!error && response.statusCode === 200) {
-          access_token = body.access_token,
-          refresh_token = body.refresh_token || refresh_token;
-          // console.log(access_token, '\n\n', refresh_token)
+      global.access_token = body.access_token,
+      global.refresh_token = body.refresh_token || global.refresh_token;
+      // console.log(access_token)
       res.send({
-        'access_token': access_token,
-        'refresh_token': refresh_token
+        'access_token': global.access_token,
+        'refresh_token': global.refresh_token
       });
     }
     else {

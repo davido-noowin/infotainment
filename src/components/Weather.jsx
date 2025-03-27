@@ -13,25 +13,28 @@ function isDayOrNight() {
 }
 
 export default function Weather(props) {
-    const weatherParams = {
-        "latitude": props.latitude,
-        "longitude": props.longitude,
-        "hourly": "temperature_2m",
-        "daily": "weather_code",
-        "temperature_unit": "fahrenheit",
-        "wind_speed_unit": "mph",
-        "precipitation_unit": "inch",
-        "timezone": "America/Los_Angeles",
-        "forecast_days": 1,
-        "models": "gfs_seamless"
+    const [weatherResponse, setWeatherResponse] = useState(null);
+    const geoPosition = {
+        latitude: props.latitude, 
+        longitude: props.longitude
     };
 
-    const [weatherResponse, setWeatherResponse] = useState(null);
-
     useEffect(() => {
+        const weatherParams = {
+            "latitude": geoPosition.latitude,
+            "longitude": geoPosition.longitude,
+            "hourly": "temperature_2m",
+            "daily": "weather_code",
+            "temperature_unit": "fahrenheit",
+            "wind_speed_unit": "mph",
+            "precipitation_unit": "inch",
+            "timezone": "America/Los_Angeles",
+            "forecast_days": 1,
+            "models": "gfs_seamless"
+        };
         fetchWeatherApi(weatherURL, weatherParams)
             .then((data) => setWeatherResponse(data[0]));
-    }, [weatherParams])
+    }, [])
 
     let dayOrNight = isDayOrNight();
     let weatherCode = ""

@@ -40,8 +40,29 @@ export default function SpotifyWebPlayback(props) {
     window.onSpotifyWebPlaybackSDKReady = () => {
       var player = new window.Spotify.Player({
         name: "infotainment",
-        getOAuthToken: (cb) => {
-          cb(tokenInfo.token);
+        getOAuthToken: async (cb) => {
+          var OAuthToken = tokenInfo.token;
+          
+          // check if token has expired
+          if (new Date().getTime() > tokenInfo.expiresAt) {
+            console.log("token has expired my g, refreshing rn");
+            const response = await fetch("/auth/refresh-token").catch(handleError);
+            if (response.ok) {
+              const json = await response.json();
+              setTokenInfo((prev) => ({
+                ...prev,
+                token: json.access_token,
+                refreshToken: json.refresh_token,
+                expiresAt: new Date().getTime() + props.expiresIn,
+              }));
+              console.log("new token:", json.access_token)
+              OAuthToken = json.access_token
+            } else {
+              return Promise.reject(response);
+            }
+          }
+          console.log("IN CALLBACK", OAuthToken)
+          cb(OAuthToken);
         },
         volume: 0.2,
       });
@@ -62,15 +83,6 @@ export default function SpotifyWebPlayback(props) {
           return;
         }
 
-        // check if token has expired
-        if (
-          tokenInfo.token !== "" &&
-          new Date().getTime() > tokenInfo.expiresAt
-        ) {
-          console.log("token has expired my g, refreshing rn");
-          getRefreshToken();
-        }
-
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
       });
@@ -88,21 +100,6 @@ export default function SpotifyWebPlayback(props) {
         body: JSON.stringify({ device_ids: [device_id] }),
       }).catch(handleError);
       console.log(response);
-    }
-
-    async function getRefreshToken() {
-      const response = await fetch("/auth/refresh-token").catch(handleError);
-      if (response.ok) {
-        console.log('new token retrieved')
-        setTokenInfo((prev) => ({
-          ...prev,
-          token: response.access_token,
-          refreshToken: response.refresh_token,
-          expiresAt: new Date().getTime() + props.expiresIn,
-        }));
-      } else {
-        return Promise.reject(response);
-      }
     }
 
     return () => {
