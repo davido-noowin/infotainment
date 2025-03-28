@@ -30,7 +30,7 @@ export default function MusicBar(props) {
   return (
     <div
       className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${
-        !props.musicPlayerIsOpen ? "hide-player" : ""
+        !props.musicPlayerIsOpen ? "hide-player" : "open-player"
       }`}
     >
       {token === "" ? (

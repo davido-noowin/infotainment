@@ -35,3 +35,9 @@
     transition-property: height;
     transition-duration: 0.5s;
 }
+
+.open-player {
+    height: 115px;
+    transition-property: height;
+    transition-duration: 0.5s;
+}

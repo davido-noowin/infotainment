@@ -11,5 +11,7 @@ export default [
     { title: "Seoul Strides", videoID: "mpTYO-8Dw5k", ID: "9"},
     { title: "Snowfall In Kyoto", videoID: "cwnKBK1r9rk", ID: "10"},
     { title: "Beach Sunset", videoID: "CBLobHhY0Gk", ID: "11"},
+    { title: "Norwegian Winter" , videoID: "-SMKVJO_wGo", ID: "12"},
+    { title: "Bluebell Woods", videoID: "IsPBplWLImI", ID: "13"},
 ];
     
