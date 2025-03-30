@@ -3,7 +3,8 @@
     align-items: center;
     width: 1080px;
     height: 115px;
-    left: 25vw;
+    left: 50%;
+    transform: translate(-50%);
     background-color: #404040;
     bottom: 0;
     z-index: 5;
@@ -24,7 +25,8 @@
 }
 
 .ui-open {
-    left: 10vw;
+    left: 5vw;
+    transform: translate(0%);
     transition-property: left;
     transition-duration: 0.3s;
 }
