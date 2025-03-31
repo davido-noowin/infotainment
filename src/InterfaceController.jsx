@@ -22,12 +22,12 @@ export default function InterfaceController() {
     <>
       <FullScreen handle={handle}>
         <DateTimeWeather />
-        <SpotifyUI />
         <MusicBar
           musicPlayerIsOpen={musicPlayerIsOpen}
           sideBarOpen={uiBarIsOpen}
           toggleMusicPlayer={toggleMusicPlayer}
         />
+        <SpotifyUI />
         <UIBar
           handleFullscreen={handle}
           sideBarOpen={uiBarIsOpen}
