@@ -1,6 +1,7 @@
 import DateTimeWeather from "./components/DateTimeWeather";
 import UIBar from "./components/UIBar";
 import MusicBar from "./components/MusicBar";
+import SpotifyUI from "./components/SpotifyUI";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { useState } from "react";
 
@@ -21,6 +22,7 @@ export default function InterfaceController() {
     <>
       <FullScreen handle={handle}>
         <DateTimeWeather />
+        <SpotifyUI />
         <MusicBar
           musicPlayerIsOpen={musicPlayerIsOpen}
           sideBarOpen={uiBarIsOpen}

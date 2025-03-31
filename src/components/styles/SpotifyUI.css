@@ -1,0 +1,17 @@
+.spotify-ui-container {
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    width: 1300px;
+    height: 750px;
+    background-color: #404040;
+    z-index: 7;
+}
+
+@media only screen and (max-width: 1920px) and (max-height: 1080px) {
+    .spotify-ui-container {
+        width: 1100px;
+        height: 550px;
+    }
+}
