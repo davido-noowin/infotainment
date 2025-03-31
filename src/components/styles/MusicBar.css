@@ -43,3 +43,9 @@
     transition-property: height;
     transition-duration: 0.5s;
 }
+
+@media only screen and (max-width: 1920px) {
+    .music-bar-container {
+        width: 880px;
+    }
+}

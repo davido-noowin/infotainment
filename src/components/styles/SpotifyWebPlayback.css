@@ -79,3 +79,33 @@
     color: #BBBBBB;
     font-size: 28px;
 }
+
+@media only screen and (max-width: 1920px) {
+    .music-player-sections {
+        gap: 145px;
+    }
+
+    .now-playing-side > p {
+        font-size: 18px;
+    }
+
+    .song-info {
+        width: 200px;
+        padding-left: 0;
+    }
+
+    .song-and-artist > h2 {
+        font-size: 28px;
+        width: 230px;
+    }
+
+    .song-and-artist > h3 {
+        color: #BBBBBB;
+        font-size: 22px;
+    }
+
+    .media-controls {
+        width: 42px;
+        height: 42px;
+    }
+}
