@@ -19,6 +19,7 @@ export default function UIBar({
   sideBarOpen,
   handleSideBarChange,
   toggleMusicPlayer,
+  toggleSpotifyUI,
 }) {
   const [videoIDFromSelector, setVideoIDFromSelector] = useState("LRmNqKw6Ly0");
   const [isMuted, setIsMuted] = useState(true);
@@ -117,7 +118,7 @@ export default function UIBar({
               <button onClick={() => toggleMusicPlayer(true)}>
                 <img src={musicPlayerButton} alt="music player"/>
               </button>
-              <button>
+              <button onClick={() => toggleSpotifyUI(true)}>
                 <img src={spotifyButton} alt="open spotify"/>
               </button>
             </div>
@@ -157,7 +158,7 @@ export default function UIBar({
               <button onClick={() => toggleMusicPlayer(true)}>
                 <img src={musicPlayerOpaqueButton} alt="music player"/>
               </button>
-              <button>
+              <button onClick={() => toggleSpotifyUI(true)}>
                 <img src={spotifyOpaqueButton} alt="open spotify"/>
               </button>
             </div>

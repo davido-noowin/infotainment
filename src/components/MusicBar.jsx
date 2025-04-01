@@ -39,6 +39,8 @@ export default function MusicBar(props) {
       <SpotifyUI 
         tokenInfo={tokenObject}
         player={player}
+        toggleSpotifyUI={props.toggleSpotifyUI}
+        spotifyUIIsOpen={props.spotifyUIIsOpen}
       />
 
       <div

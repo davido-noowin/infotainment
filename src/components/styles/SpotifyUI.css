@@ -1,3 +1,7 @@
+.hide-spotify-ui {
+    visibility: hidden;
+}
+
 .shadow-spotify-bg {
     height: 100%;
     width: 100%;

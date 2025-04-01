@@ -8,6 +8,7 @@ export default function InterfaceController() {
   const handle = useFullScreenHandle();
   const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
   const [musicPlayerIsOpen, setMusicPlayer] = useState(true);
+  const [spotifyUIIsOpen, setSpotifyUI] = useState(false);
 
   function toggleSideBar() {
     setUIBarIsOpen((prev) => !prev);
@@ -17,6 +18,10 @@ export default function InterfaceController() {
     setMusicPlayer(bool);
   }
 
+  function toggleSpotifyUI(bool) {
+    setSpotifyUI(bool);
+  }
+
   return (
     <>
       <FullScreen handle={handle}>
@@ -24,13 +29,16 @@ export default function InterfaceController() {
         <MusicBar
           musicPlayerIsOpen={musicPlayerIsOpen}
           sideBarOpen={uiBarIsOpen}
+          spotifyUIIsOpen={spotifyUIIsOpen}
           toggleMusicPlayer={toggleMusicPlayer}
+          toggleSpotifyUI={toggleSpotifyUI}
         />
         <UIBar
           handleFullscreen={handle}
           sideBarOpen={uiBarIsOpen}
           handleSideBarChange={toggleSideBar}
           toggleMusicPlayer={toggleMusicPlayer}
+          toggleSpotifyUI={toggleSpotifyUI}
         />
       </FullScreen>
     </>
