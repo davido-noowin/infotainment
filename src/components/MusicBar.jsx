@@ -11,7 +11,8 @@ export default function MusicBar(props) {
     refreshToken: "",
     expiresIn: 0,
   });
-  console.log(tokenObject);
+  const [player, setPlayer] = useState(undefined);
+  console.log("IN MUSIC PLAYER", tokenObject);
 
   useEffect(() => {
     async function getToken() {
@@ -22,7 +23,7 @@ export default function MusicBar(props) {
         setToken({
           token: json.access_token,
           refreshToken: json.refresh_token,
-          expiresIn: json.expires_in * 1000,
+          expiresIn: new Date().getTime() + (json.expires_in * 1000),
         });
       } else {
         return Promise.reject(response);
@@ -42,9 +43,10 @@ export default function MusicBar(props) {
         <SpotifyLogin />
       ) : (
         <SpotifyWebPlayback
-          token={tokenObject.token}
-          refreshToken={tokenObject.refreshToken}
-          expiresIn={tokenObject.expiresIn}
+          tokenInfo={tokenObject}
+          updateToken={setToken}
+          player={player}
+          updatePlayer={setPlayer}
         />
       )}
       <button

@@ -19,13 +19,7 @@ export default function SpotifyWebPlayback(props) {
   const [isPaused, setPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
-  const [player, setPlayer] = useState(undefined);
   const [currentTrack, setTrack] = useState(track);
-  const [tokenInfo, setTokenInfo] = useState({
-    token: props.token,
-    refreshToken: props.refreshToken,
-    expiresAt: new Date().getTime() + props.expiresIn,
-  });
 
   const muteButton = useRef(null);
   const volumeSlider = useRef(null);
@@ -41,19 +35,19 @@ export default function SpotifyWebPlayback(props) {
       var player = new window.Spotify.Player({
         name: "infotainment",
         getOAuthToken: async (cb) => {
-          var OAuthToken = tokenInfo.token;
+          var OAuthToken = props.tokenInfo.token;
           
           // check if token has expired
-          if (new Date().getTime() > tokenInfo.expiresAt) {
+          if (new Date().getTime() > props.tokenInfo.expiresIn) {
             console.log("token has expired my g, refreshing rn");
             const response = await fetch("/auth/refresh-token").catch(handleError);
             if (response.ok) {
               const json = await response.json();
-              setTokenInfo((prev) => ({
+              props.updateToken((prev) => ({
                 ...prev,
                 token: json.access_token,
                 refreshToken: json.refresh_token,
-                expiresAt: new Date().getTime() + props.expiresIn,
+                expiresIn: new Date().getTime() + (json.expires_in * 1000),
               }));
               console.log("new token:", json.access_token)
               OAuthToken = json.access_token
@@ -67,7 +61,7 @@ export default function SpotifyWebPlayback(props) {
         volume: 0.2,
       });
 
-      setPlayer(player);
+      props.updatePlayer(player);
 
       player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
@@ -94,7 +88,7 @@ export default function SpotifyWebPlayback(props) {
       const response = await fetch("https://api.spotify.com/v1/me/player", {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${tokenInfo.token}`,
+          Authorization: `Bearer ${props.tokenInfo.token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ device_ids: [device_id] }),
@@ -111,18 +105,18 @@ export default function SpotifyWebPlayback(props) {
   }, []);
 
   function updateVolume(event) {
-    if (player) {
+    if (props.player) {
       setSliderValue(event.target.value);
-      player.setVolume(event.target.value / 100);
+      props.player.setVolume(event.target.value / 100);
     }
   }
 
   function toggleMuteButton() {
-    if (player) {
+    if (props.player) {
       setIsMuted((prevIsMuted) => {
         !prevIsMuted
-          ? player.setVolume(0)
-          : player.setVolume(sliderValue / 100);
+          ? props.player.setVolume(0)
+          : props.player.setVolume(sliderValue / 100);
         return !prevIsMuted;
       });
     }
@@ -152,14 +146,14 @@ export default function SpotifyWebPlayback(props) {
           <div className="media-controls">
             <button
               onClick={() => {
-                player.previousTrack();
+                props.player.previousTrack();
               }}
             >
               <img src={skipBack} alt="previous track" />
             </button>
             <button
               onClick={() => {
-                player.togglePlay();
+                props.player.togglePlay();
               }}
             >
               <img
@@ -169,7 +163,7 @@ export default function SpotifyWebPlayback(props) {
             </button>
             <button
               onClick={() => {
-                player.nextTrack();
+                props.player.nextTrack();
               }}
             >
               <img src={skipForward} alt="next track" />
