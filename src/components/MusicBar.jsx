@@ -2,6 +2,7 @@ import "./styles/MusicBar.css";
 import SpotifyLogin from "./SpotifyLogin";
 import SpotifyWebPlayback from "./SpotifyWebPlayback";
 import hideMusicPlayer from "../assets/uiButtons/HideMusicPlayer.png";
+import SpotifyUI from "./SpotifyUI";
 import handleError from "../handleError";
 import { useState, useEffect } from "react";
 
@@ -12,7 +13,7 @@ export default function MusicBar(props) {
     expiresIn: 0,
   });
   const [player, setPlayer] = useState(undefined);
-  console.log("IN MUSIC PLAYER", tokenObject);
+  // console.log("IN MUSIC PLAYER", tokenObject);
 
   useEffect(() => {
     async function getToken() {
@@ -34,27 +35,34 @@ export default function MusicBar(props) {
   }, []);
 
   return (
-    <div
-      className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${
-        !props.musicPlayerIsOpen ? "hide-player" : "open-player"
-      }`}
-    >
-      {tokenObject.token === "" ? (
-        <SpotifyLogin />
-      ) : (
-        <SpotifyWebPlayback
-          tokenInfo={tokenObject}
-          updateToken={setToken}
-          player={player}
-          updatePlayer={setPlayer}
-        />
-      )}
-      <button
-        onClick={() => props.toggleMusicPlayer(false)}
-        className="close-player-btn"
+    <>
+      <SpotifyUI 
+        tokenInfo={tokenObject}
+        player={player}
+      />
+
+      <div
+        className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${
+          !props.musicPlayerIsOpen ? "hide-player" : "open-player"
+        }`}
       >
-        <img src={hideMusicPlayer} alt="close music player" />
-      </button>
-    </div>
+        {tokenObject.token === "" ? (
+          <SpotifyLogin />
+        ) : (
+          <SpotifyWebPlayback
+            tokenInfo={tokenObject}
+            updateToken={setToken}
+            player={player}
+            updatePlayer={setPlayer}
+          />
+        )}
+        <button
+          onClick={() => props.toggleMusicPlayer(false)}
+          className="close-player-btn"
+        >
+          <img src={hideMusicPlayer} alt="close music player" />
+        </button>
+      </div>
+    </>
   );
 }
