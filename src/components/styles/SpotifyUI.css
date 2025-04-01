@@ -1,3 +1,12 @@
+.shadow-spotify-bg {
+    height: 100%;
+    width: 100%;
+    background-color: #404040;
+    opacity: 30%;
+    position: absolute;
+    z-index: 4;
+}
+
 .spotify-ui-container {
     transform: translate(-50%, -50%);
     left: 50%;
