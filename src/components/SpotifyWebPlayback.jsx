@@ -129,62 +129,64 @@ export default function SpotifyWebPlayback(props) {
   }
 
   return (
-    <div className="spotify-container">
-      <div className="music-player-sections">
-        <div className="now-playing-side">
-          <p>Now Playing:</p>
-          <div className="song-info">
-            {currentTrack.album.images[0].url !== "" ? (
-              <img
-                src={currentTrack.album.images[0].url}
-                className="now-playing__cover"
-                alt={currentTrack.name}
-              />
-            ) : null}
+    <>
+      <div className="spotify-container">
+        <div className="music-player-sections">
+          <div className="now-playing-side">
+            <p>Now Playing:</p>
+            <div className="song-info">
+              {currentTrack.album.images[0].url !== "" ? (
+                <img
+                  src={currentTrack.album.images[0].url}
+                  className="now-playing__cover"
+                  alt={currentTrack.name}
+                />
+              ) : null}
 
-            <div className="song-and-artist">
-              <h2>{currentTrack.name}</h2>
-              <h3>{currentTrack.artists[0].name}</h3>
+              <div className="song-and-artist">
+                <h2>{currentTrack.name}</h2>
+                <h3>{currentTrack.artists[0].name}</h3>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="media-controls">
-          <button
-            onClick={() => {
-              player.previousTrack();
-            }}
-          >
-            <img src={skipBack} alt="previous track" />
-          </button>
-          <button
-            onClick={() => {
-              player.togglePlay();
-            }}
-          >
-            <img
-              src={isPaused ? play : pause}
-              alt={isPaused ? "PLAY" : "PAUSE"}
+          <div className="media-controls">
+            <button
+              onClick={() => {
+                player.previousTrack();
+              }}
+            >
+              <img src={skipBack} alt="previous track" />
+            </button>
+            <button
+              onClick={() => {
+                player.togglePlay();
+              }}
+            >
+              <img
+                src={isPaused ? play : pause}
+                alt={isPaused ? "PLAY" : "PAUSE"}
+              />
+            </button>
+            <button
+              onClick={() => {
+                player.nextTrack();
+              }}
+            >
+              <img src={skipForward} alt="next track" />
+            </button>
+          </div>
+          <div className="volume-controls">
+            <VolumeSlider
+              refs={{ muteButton: muteButton, slider: volumeSlider }}
+              component="MusicPlayer"
+              isMuted={isMuted}
+              value={sliderValue}
+              handleClick={toggleMuteButton}
+              handleChange={updateVolume}
             />
-          </button>
-          <button
-            onClick={() => {
-              player.nextTrack();
-            }}
-          >
-            <img src={skipForward} alt="next track" />
-          </button>
-        </div>
-        <div className="volume-controls">
-          <VolumeSlider
-            refs={{ muteButton: muteButton, slider: volumeSlider }}
-            component="MusicPlayer"
-            isMuted={isMuted}
-            value={sliderValue}
-            handleClick={toggleMuteButton}
-            handleChange={updateVolume}
-          />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
