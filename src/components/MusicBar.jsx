@@ -24,7 +24,7 @@ export default function MusicBar(props) {
         setToken({
           token: json.access_token,
           refreshToken: json.refresh_token,
-          expiresIn: new Date().getTime() + (json.expires_in * 1000),
+          expiresIn: new Date().getTime() + json.expires_in * 1000,
         });
       } else {
         return Promise.reject(response);
@@ -36,12 +36,14 @@ export default function MusicBar(props) {
 
   return (
     <>
-      <SpotifyUI 
-        tokenInfo={tokenObject}
-        player={player}
-        toggleSpotifyUI={props.toggleSpotifyUI}
-        spotifyUIIsOpen={props.spotifyUIIsOpen}
-      />
+      {tokenObject.token !== "" ? (
+        <SpotifyUI
+          tokenInfo={tokenObject}
+          player={player}
+          toggleSpotifyUI={props.toggleSpotifyUI}
+          spotifyUIIsOpen={props.spotifyUIIsOpen}
+        />
+      ) : null}
 
       <div
         className={`music-bar-container ${props.sideBarOpen ? "ui-open" : ""} ${
