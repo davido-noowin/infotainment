@@ -66,6 +66,28 @@
     opacity: 1;
 }
 
+.header-bar {
+    position: absolute;
+    left: 33%;
+    top: 12.2%;
+    width: 60%;
+    height: 1px;
+    background-color: #DDDDDD;
+}
+
+.header-titles {
+    display: flex;
+    color: #a6a6a6;
+    gap: 180px;
+    padding-left: 80px;
+}
+
+.spotify-title-btn {
+    width: auto;
+    height: auto;
+    font-size: 32px;
+}
+
 @media only screen and (max-width: 1920px) and (max-height: 1080px) {
     .spotify-ui-container {
         width: 1100px;

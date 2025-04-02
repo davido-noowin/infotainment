@@ -3,6 +3,11 @@ import closeUIButton from "../assets/uiButtons/closeUIButton.png";
 import search from "../assets/uiButtons/Search.png";
 
 export default function SpotifyUI(props) {
+    function searchSong(formData) {
+        const query = formData.get("query")
+        console.log("you searched for", query)
+    }
+
     return (
         <div className={`${props.spotifyUIIsOpen ? "" : "hide-spotify-ui"}`}>
             <div className={`${props.tokenInfo.token !== "" ? "shadow-spotify-bg" : ""}`}></div>
@@ -11,10 +16,16 @@ export default function SpotifyUI(props) {
                     <button className="close-spotify-btn" onClick={() => props.toggleSpotifyUI(false)}>
                         <img src={closeUIButton} />
                     </button>
-                    <form className="song-search">
+                    <form action={searchSong} className="song-search">
                         <button><img src={search} alt="search"/></button>
-                        <input className="search-field" type="search" placeholder="I want to listen to..." />
+                        <input name="query" className="search-field" type="search" placeholder="I want to listen to..." />
                     </form>
+                    <div className="header-bar"></div>
+                    <div className="header-titles">
+                        <button className="spotify-title-btn">Home</button>
+                        <button className="spotify-title-btn">Browse</button>
+                        <button className="spotify-title-btn">My Playlists</button>
+                    </div>
                 </header>
             </div>
         </div>
