@@ -17,7 +17,7 @@ export default function SpotifyUI(props) {
                         <img src={closeUIButton} />
                     </button>
                     <form action={searchSong} className="song-search">
-                        <button><img src={search} alt="search"/></button>
+                        <button type="submit"><img src={search} alt="search"/></button>
                         <input name="query" className="search-field" type="search" placeholder="I want to listen to..." />
                     </form>
                     <div className="header-bar"></div>

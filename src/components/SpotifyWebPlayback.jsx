@@ -24,6 +24,8 @@ export default function SpotifyWebPlayback(props) {
   const muteButton = useRef(null);
   const volumeSlider = useRef(null);
 
+  console.log(props.tokenInfo)
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
