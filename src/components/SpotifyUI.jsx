@@ -32,9 +32,9 @@ export default function SpotifyUI(props) {
                     </form>
                     <div className="header-bar"></div>
                     <div className="header-titles">
-                        <button className="spotify-title-btn" onClick={() => {navigateScreens('home')}}>Home</button>
-                        <button className="spotify-title-btn" onClick={() => {navigateScreens('browse')}}>Browse</button>
-                        <button className="spotify-title-btn" onClick={() => {navigateScreens('my playlists')}}>My Playlists</button>
+                        <button className={`spotify-title-btn ${activeScreen === 'home' ? "active-title" : ""}`} onClick={() => {navigateScreens('home')}}>Home</button>
+                        <button className={`spotify-title-btn ${activeScreen === 'browse' ? "active-title" : ""}`} onClick={() => {navigateScreens('browse')}}>Browse</button>
+                        <button className={`spotify-title-btn ${activeScreen === 'my playlists' ? "active-title" : ""}`} onClick={() => {navigateScreens('my playlists')}}>My Playlists</button>
                     </div>
                 </header>
                 {(() => {
