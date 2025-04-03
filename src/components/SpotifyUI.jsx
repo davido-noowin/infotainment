@@ -1,11 +1,21 @@
 import "./styles/SpotifyUI.css"
 import closeUIButton from "../assets/uiButtons/closeUIButton.png";
 import search from "../assets/uiButtons/Search.png";
+import SpotifyUIHome from "./SpotifyUIHome";
+import SpotifyUIBrowse from "./SpotifyUIBrowse";
+import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
+import { useState } from "react"
 
 export default function SpotifyUI(props) {
+    const [activeScreen, setActiveScreen] = useState('home');
+
     function searchSong(formData) {
         const query = formData.get("query")
         console.log("you searched for", query)
+    }
+
+    function navigateScreens(screen) {
+        setActiveScreen(screen);
     }
 
     return (
@@ -22,11 +32,28 @@ export default function SpotifyUI(props) {
                     </form>
                     <div className="header-bar"></div>
                     <div className="header-titles">
-                        <button className="spotify-title-btn">Home</button>
-                        <button className="spotify-title-btn">Browse</button>
-                        <button className="spotify-title-btn">My Playlists</button>
+                        <button className="spotify-title-btn" onClick={() => {navigateScreens('home')}}>Home</button>
+                        <button className="spotify-title-btn" onClick={() => {navigateScreens('browse')}}>Browse</button>
+                        <button className="spotify-title-btn" onClick={() => {navigateScreens('my playlists')}}>My Playlists</button>
                     </div>
                 </header>
+                {(() => {
+                    if (activeScreen === 'home') {
+                        return (<SpotifyUIHome player={props.player} />)
+                    }
+
+                    else if (activeScreen === 'browse') {
+                        return (<SpotifyUIBrowse player={props.player} />)
+                    }
+
+                    else if (activeScreen === 'my playlists') {
+                        return (<SpotifyUIMyPlaylists player={props.player} />)
+                    }
+
+                    else {
+                        return null;
+                    }
+                })()}
             </div>
         </div>
     )
