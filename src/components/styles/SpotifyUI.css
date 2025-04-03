@@ -47,17 +47,17 @@
     gap: 20px
 }
 
-.search-field {
+#search-field {
     width: 292px;
     height: 59px;
     border-radius: 25px;
     border: none;
-    background-color: inherit;
+    background-color: #676767;
     color: #a6a6a6;
     font-size: 28px;
 }
 
-.search-field:focus {
+#search-field:focus {
     outline: none;
 }
 
@@ -99,7 +99,7 @@
         height: 50px;
     }
 
-    .search-field {
+    #search-field {
         width: 248px;
         font-size: 24px;
         height: 50px;

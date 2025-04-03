@@ -16,9 +16,9 @@ export default function SpotifyUI(props) {
                     <button className="close-spotify-btn" onClick={() => props.toggleSpotifyUI(false)}>
                         <img src={closeUIButton} />
                     </button>
-                    <form action={searchSong} className="song-search">
+                    <form action={searchSong} className="song-search" autoComplete="off">
                         <button type="submit"><img src={search} alt="search"/></button>
-                        <input name="query" className="search-field" type="search" placeholder="I want to listen to..." />
+                        <input name="query" id="search-field" type="search" placeholder="I want to listen to..." />
                     </form>
                     <div className="header-bar"></div>
                     <div className="header-titles">
