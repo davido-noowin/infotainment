@@ -52,3 +52,26 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+@media only screen and (max-width: 1920px) and (max-height: 1080px) {
+    .my-playlists-container {
+        height: 426px;
+        column-gap: 70px;
+        row-gap: 45px;
+    }
+
+    .playlist-object {
+        width: 145px;
+        height: 195px;
+    }
+
+    .playlist-image {
+        width: 145px;
+        height: 145px;
+    }
+
+    .playlist-title {
+        font-size: 28px;
+    }
+
+}
