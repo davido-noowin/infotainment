@@ -26,7 +26,7 @@
     display: grid;
     grid-template-columns: repeat(4, 200px);
     overflow-y: scroll;
-    column-gap: 130px;
+    column-gap: 120px;
     row-gap: 60px;
     border-bottom-left-radius: 15px;
     justify-content: center;
@@ -35,13 +35,21 @@
 
 .playlist-object {
    width: 200px;
-   height: 250px; 
+   height: 250px;
+   padding: 10px; 
+}
+
+.playlist-object:hover {
+    padding: 10px;
+    background-color: rgba(187, 187, 187, 0.3);
+    border-radius: 15px;
 }
 
 .playlist-image {
     width: 200px;
     height: 200px;
     border-radius: 15px;
+    z-index: 3;
 }
 
 .playlist-title {
