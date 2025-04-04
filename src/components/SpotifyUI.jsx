@@ -40,15 +40,15 @@ export default function SpotifyUI(props) {
                 </header>
                 {(() => {
                     if (activeScreen === 'home') {
-                        return (<SpotifyUIHome player={props.player} />)
+                        return (<SpotifyUIHome player={props.player} tokenInfo={props.tokenInfo} />)
                     }
 
                     else if (activeScreen === 'browse') {
-                        return (<SpotifyUIBrowse player={props.player} />)
+                        return (<SpotifyUIBrowse player={props.player} tokenInfo={props.tokenInfo} />)
                     }
 
                     else if (activeScreen === 'my playlists') {
-                        return (<SpotifyUIMyPlaylists player={props.player} />)
+                        return (<SpotifyUIMyPlaylists player={props.player} tokenInfo={props.tokenInfo} />)
                     }
 
                     else if (activeScreen === 'searching') {
