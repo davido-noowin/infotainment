@@ -14,7 +14,7 @@ export default function SpotifyUIMyPlaylists(props) {
 
     const myPlaylists = playlists.items.map((playlistObject) => {
         return (
-            <button className="playlist-object" onClick={() => {
+            <button key={playlistObject.id} className="playlist-object" onClick={() => {
                 selectPlaylist(playlistObject.id);
             }}>
                 <img className="playlist-image" draggable="false" src={playlistObject.images[0].url} />
@@ -29,6 +29,7 @@ export default function SpotifyUIMyPlaylists(props) {
                 <SpotifyUIPlaylist 
                     type="playlist"
                     tokenInfo={props.tokenInfo}
+                    player={props.player}
                     playlistID={playlistID}
                     closePlaylist={setPlaylistScreen}
                 /> 

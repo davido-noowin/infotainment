@@ -6,11 +6,30 @@ import disableShuffle from "../assets/uiButtons/DisableShuffle.png";
 import leftArrow from "../assets/uiButtons/ArrowLeft.png"
 import rightArrow from "../assets/uiButtons/ArrowRight.png"
 import "./styles/SpotifyUIPlaylist.css"
-import { useState } from "react"
+import handleError from "../handleError";
+import { useState, useEffect } from "react"
 
 export default function SpotifyUIPlaylist(props) {
+    const [isShuffled, setShuffle] = useState(false)
+
+    useEffect(() =>{
+        props.player.getCurrentState()
+            .then(res => setShuffle(res.shuffle));
+    }, [])
+
     function closePlaylist() {
         props.closePlaylist((prev) => !prev)
+    }
+
+    async function toggleShuffle() {
+        await fetch(`https://api.spotify.com/v1/me/player/shuffle?state=${!isShuffled}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${props.tokenInfo.token}`,
+                "Content-Type": "application/json",
+              }
+        }).catch(handleError);
+        setShuffle((prev) => !prev);
     }
 
     return (
@@ -31,8 +50,8 @@ export default function SpotifyUIPlaylist(props) {
                         <button className="song-control-btn">
                             <img src={play}/>
                         </button>
-                        <button className="song-control-btn">
-                            <img src={shuffle}/>
+                        <button className="song-control-btn" onClick={toggleShuffle}>
+                            <img src={isShuffled ? shuffle : disableShuffle}/>
                         </button>
                     </div>
                     <div className="pagination-btn-group">
