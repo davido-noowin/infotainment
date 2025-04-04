@@ -24,7 +24,6 @@ export default function SpotifyWebPlayback(props) {
   const muteButton = useRef(null);
   const volumeSlider = useRef(null);
 
-  console.log(props.tokenInfo)
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -45,11 +44,14 @@ export default function SpotifyWebPlayback(props) {
             const response = await fetch("/auth/refresh-token").catch(handleError);
             if (response.ok) {
               const json = await response.json();
+              console.log('RECEIVED REFRESH REQUEST')
+              console.log(json)
+              console.log(typeof(json.expires_in))
               props.updateToken((prev) => ({
                 ...prev,
                 token: json.access_token,
                 refreshToken: json.refresh_token,
-                expiresIn: new Date().getTime() + (json.expires_in * 1000),
+                expiresIn: new Date().getTime() + json.expires_in * 1000,
               }));
               console.log("new token:", json.access_token)
               OAuthToken = json.access_token

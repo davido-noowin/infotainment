@@ -29,7 +29,11 @@ var app = express();
 
 app.get('/auth/login', (req, res) => {
   console.log("attempting to login...")
-  var scope = "streaming user-read-email user-read-private user-modify-playback-state user-read-recently-played"
+  var scope = "streaming user-read-email \
+               user-read-private \
+               user-modify-playback-state \
+               user-read-recently-played \
+               playlist-read-private"
   var state = generateRandomString(16);
 
   var auth_query_parameters = new URLSearchParams({
@@ -107,7 +111,8 @@ app.get('/auth/refresh-token', (req, res) => {
       // console.log(access_token)
       res.send({
         'access_token': global.access_token,
-        'refresh_token': global.refresh_token
+        'refresh_token': global.refresh_token,
+        'expires_in': global.expires_in,
       });
     }
     else {
