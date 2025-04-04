@@ -57,3 +57,38 @@
     font-size: 20px;
     color: #BBBBBB
 }
+
+.playlist-btn-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.song-control-btn-group {
+    display: flex;
+    gap: 15px;
+}
+
+.song-control-btn {
+    width: 48px;
+    height: 48px;
+}
+
+.song-control-btn > img {
+    width: 48px;
+    height: 48px;
+}
+
+.pagination-btn-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.pagination-page {
+    color: #DDDDDD;
+    font-size: 28px;
+}
