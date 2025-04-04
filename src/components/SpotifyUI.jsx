@@ -9,13 +9,14 @@ import { useState } from "react"
 export default function SpotifyUI(props) {
     const [activeScreen, setActiveScreen] = useState('home');
 
-    function searchSong(formData) {
-        const query = formData.get("query")
-        console.log("you searched for", query)
-    }
-
     function navigateScreens(screen) {
         setActiveScreen(screen);
+    }
+
+    function searchSong(formData) {
+        navigateScreens("searching");
+        const query = formData.get("query");
+        console.log("you searched for", query)
     }
 
     return (
@@ -48,6 +49,10 @@ export default function SpotifyUI(props) {
 
                     else if (activeScreen === 'my playlists') {
                         return (<SpotifyUIMyPlaylists player={props.player} />)
+                    }
+
+                    else if (activeScreen === 'searching') {
+                        return (<p>i am a searchin</p>);
                     }
 
                     else {
