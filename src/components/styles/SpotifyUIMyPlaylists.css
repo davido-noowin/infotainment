@@ -1,0 +1,54 @@
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #404040;
+    border-radius: 15px; 
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 15px;  
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #DDDDDD; 
+}
+
+.my-playlists-container {
+    width: 100%;
+    height: 615px;
+    display: grid;
+    grid-template-columns: repeat(4, 200px);
+    overflow-y: scroll;
+    column-gap: 130px;
+    row-gap: 60px;
+    border-bottom-left-radius: 15px;
+    justify-content: center;
+    margin-top: 2.8%;
+}
+
+.playlist-object {
+   width: 200px;
+   height: 250px; 
+}
+
+.playlist-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+}
+
+.playlist-title {
+    color: #DDDDDD;
+    font-size: 32px;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

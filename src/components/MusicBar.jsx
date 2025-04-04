@@ -13,7 +13,7 @@ export default function MusicBar(props) {
     expiresIn: 0,
   });
   const [player, setPlayer] = useState(undefined);
-  console.log("IN MUSIC PLAYER", tokenObject);
+  // console.log("IN MUSIC PLAYER", tokenObject);
 
   useEffect(() => {
     async function getToken() {

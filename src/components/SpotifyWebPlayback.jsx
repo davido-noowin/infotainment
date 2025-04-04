@@ -44,9 +44,9 @@ export default function SpotifyWebPlayback(props) {
             const response = await fetch("/auth/refresh-token").catch(handleError);
             if (response.ok) {
               const json = await response.json();
-              console.log('RECEIVED REFRESH REQUEST')
-              console.log(json)
-              console.log(typeof(json.expires_in))
+              // console.log('RECEIVED REFRESH REQUEST')
+              // console.log(json)
+              // console.log(typeof(json.expires_in))
               props.updateToken((prev) => ({
                 ...prev,
                 token: json.access_token,

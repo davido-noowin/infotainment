@@ -17,7 +17,7 @@ export default function SpotifyUIHome(props) {
             }).catch(handleError);
             if (response.ok) {
                 const json = await response.json();
-                console.log(json);
+                // console.log(json);
                 setDisplayName(json.display_name);
             }
         }
