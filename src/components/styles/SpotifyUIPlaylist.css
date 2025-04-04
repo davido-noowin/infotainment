@@ -1,0 +1,59 @@
+.spotify-playlist-container {
+    width: 100%;
+    height: 615px;
+}
+
+.close-playlist-btn {
+    width: 25px;
+    height: 25px;
+    margin-left: 3%;
+    margin-top: 1.5%;
+}
+
+.close-playlist-btn:hover {
+    background-color: rgba(187, 187, 187, 0.2);
+    border-radius: 50%;
+}
+
+.close-playlist-btn > img {
+    width: 25px;
+    height: 25px;
+}
+
+.main-container {
+    width: 100%;
+    height: 595px;
+}
+
+.playlist-title-section {
+    width: 100%;
+    padding-left: 3%;
+    padding-top: 1.5%;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.playlist-img-cover {
+    width: 115px;
+    height: 115px;
+    background-color: #868686;
+    border-radius: 15px;
+}
+
+.playlist-title-and-creator {
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-title-and-creator > h1{
+    font-size: 78px;
+    margin: 0;
+    color: #DDDDDD;
+}
+
+.playlist-title-and-creator > p {
+    margin: 0;
+    font-size: 20px;
+    color: #BBBBBB
+}

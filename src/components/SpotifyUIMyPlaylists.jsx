@@ -1,19 +1,42 @@
 import "./styles/SpotifyUIMyPlaylists.css"
+import SpotifyUIPlaylist from "./SpotifyUIPlaylist"
 import playlists from "../assets/tempPlaylists"
+import { useState } from "react"
 
 export default function SpotifyUIMyPlaylists(props) {
+    const [playlistScreen, setPlaylistScreen] = useState(false);
+    const [playlistID, setPlaylistID] = useState("");
+
+    function selectPlaylist(id) {
+        setPlaylistScreen((prev) => !prev);
+        setPlaylistID(id);
+    }
+
     const myPlaylists = playlists.items.map((playlistObject) => {
         return (
-            <button className="playlist-object">
-                <img className="playlist-image" src={playlistObject.images[0].url} />
+            <button className="playlist-object" onClick={() => {
+                selectPlaylist(playlistObject.id);
+            }}>
+                <img className="playlist-image" draggable="false" src={playlistObject.images[0].url} />
                 <p className="playlist-title">{playlistObject.name}</p>
             </button>
         )
     })
 
     return (
-        <div className="my-playlists-container">
-            {myPlaylists}
+        <div>
+            {playlistScreen ? 
+                <SpotifyUIPlaylist 
+                    type="playlist"
+                    tokenInfo={props.tokenInfo}
+                    playlistID={playlistID}
+                    closePlaylist={setPlaylistScreen}
+                /> 
+                : 
+                <div className="my-playlists-container">
+                    {myPlaylists}
+                </div>
+            }
         </div>
     )
 }
