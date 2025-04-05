@@ -9,16 +9,69 @@ import "./styles/SpotifyUIPlaylist.css"
 import handleError from "../handleError";
 import { useState, useEffect } from "react"
 
+function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
+const queryString = "?market=us&fields=name%2Cowner%28display_name%29%2Cimages%2Ctracks.items%28track%28name%2C+artists%2C+album%28images%2C+name%29%2C+duration_ms%2Curi%29"
+const track = {
+    images : [{ url : null}],
+    name: "",
+    owner: { display_name: ""},
+    tracks: {
+        items: [{
+            track: {
+                album: {
+                    images: [{ url: null }],
+                    name: ""
+                },
+                artists: [{ name: "" }],
+                duration_ms: 0,
+                name: "",
+                uri: ""
+            }
+        }]
+    }
+}
+
 export default function SpotifyUIPlaylist(props) {
     const [isShuffled, setShuffle] = useState(false)
+    const [isPaused, setPaused] = useState(false)
+    const [playlist, setPlaylistItems] = useState(track)
 
     useEffect(() =>{
         props.player.getCurrentState()
-            .then(res => setShuffle(res.shuffle));
+            .then(res => {
+                setShuffle(res.shuffle);
+                setPaused(res.paused);
+            });
+        
+        async function loadPlaylist(playlistURI) {
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${props.tokenInfo.token}`,
+                    "Content-Type": "application/json",
+                  }
+            }).catch(handleError);
+            if (response.ok) {
+                const json = await response.json();
+                // console.log(json);
+                setPlaylistItems(json);
+            }
+        } 
+        loadPlaylist(props.playlistID);
     }, [])
 
     function closePlaylist() {
         props.closePlaylist((prev) => !prev)
+    }
+
+    function togglePlay() {
+        props.player.togglePlay();
+        setPaused((prev) => !prev);
     }
 
     async function toggleShuffle() {
@@ -32,6 +85,25 @@ export default function SpotifyUIPlaylist(props) {
         setShuffle((prev) => !prev);
     }
 
+    const playlistItems = playlist.tracks.items.map(
+        (song, index) => {
+            return (
+                <li key={song.track.id} className="playlist-song-obj">
+                    <button>
+                        <div className="playlist-song-obj-group">
+                            <span className="playlist-song-number">{index + 1}</span>
+                            <img className="playlist-song-img" src={song.track.album.images[0].url} alt={song.track.album.name}/>
+                            <span className="playlist-song-details track-name">{song.track.name}</span>
+                            <span className="playlist-song-details artist-name">{song.track.artists[0].name}</span>
+                            <span className="playlist-song-details album-name">{song.track.album.name}</span>
+                            <span className="playlist-song-details time-name">{millisToMinutesAndSeconds(song.track.duration_ms)}</span>
+                        </div>
+                    </button>
+                </li>
+            )
+        }
+    )
+
     return (
         <div className="spotify-playlist-container">
             <button className="close-playlist-btn" onClick={closePlaylist}>
@@ -39,16 +111,16 @@ export default function SpotifyUIPlaylist(props) {
             </button>
             <div className="main-container">
                 <div className="playlist-title-section">
-                    <img className="playlist-img-cover" src={""} alt=""/>
+                    <img className="playlist-img-cover" src={playlist.images[0].url} alt={playlist.name}/>
                     <div className="playlist-title-and-creator">
-                        <h1>the new wave</h1>
-                        <p>David Nguyen</p>
+                        <h1>{playlist.name}</h1>
+                        <p>{playlist.owner.display_name}</p>
                     </div>
                 </div>
                 <div className="playlist-btn-group">
                     <div className="song-control-btn-group">
-                        <button className="song-control-btn">
-                            <img src={play}/>
+                        <button className="song-control-btn" onClick={togglePlay}>
+                            <img src={isPaused ? play : pause}/>
                         </button>
                         <button className="song-control-btn" onClick={toggleShuffle}>
                             <img src={isShuffled ? shuffle : disableShuffle}/>
@@ -64,6 +136,17 @@ export default function SpotifyUIPlaylist(props) {
                         </button>
                     </div>
                 </div>
+                <div className="playlist-label-group">
+                    <p className="playlist-label song-label">Song</p>
+                    <p className="playlist-label artist-label">Artist</p>
+                    <p className="playlist-label album-label">Album</p>
+                    <p className="playlist-label time-label">Time</p>
+                </div>
+                <div className="playlist-label-linebreak"></div>
+                <ul className="playlist-songs">
+                    {playlistItems}
+
+                </ul>
             </div>
         </div>
     )

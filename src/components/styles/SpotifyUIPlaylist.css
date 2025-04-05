@@ -23,6 +23,7 @@
 .main-container {
     width: 100%;
     height: 595px;
+    overflow-y: scroll;
 }
 
 .playlist-title-section {
@@ -86,9 +87,129 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    visibility: hidden;
 }
 
 .pagination-page {
     color: #DDDDDD;
     font-size: 28px;
+}
+
+.playlist-label-group {
+    display: flex;
+    width: 100%;
+    gap: 150px;
+    padding-left: 7%;
+}
+
+.playlist-label {
+    font-size: 15px;
+    color: #DDDDDD;
+    margin: 0;
+}
+
+.artist-label {
+    padding-left: 22%;
+}
+
+.album-label {
+    padding-left: 5%;
+}
+
+.time-label {
+    padding-left: 17%;
+}
+
+.playlist-label-linebreak {
+    background-color: #FFF;
+    width: 94%;
+    height: 1px;
+    margin-left: 3%;
+}
+
+.playlist-songs {
+    list-style: none;
+    padding-right: 3%;
+}
+
+.playlist-song-obj {
+    width: 100%;
+    height: 50px;
+    background-color: #505050;
+    border-radius: 10px;
+    margin-bottom: 7px;
+}
+
+.playlist-song-obj:hover {
+    background-color: #676767;
+}
+
+.playlist-song-obj > button {
+    width: 100%;
+    height: 50px;
+}
+
+.playlist-song-obj-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.playlist-song-details {
+    color: #a6a6a6;
+    font-size: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.track-name {
+    width: 32%;
+}
+
+.artist-name {
+    width: 20%;
+}
+
+.album-name {
+    width: 33%;
+}
+
+.time-name {
+    width: 5%;
+}
+
+.playlist-song-number {
+    color: #BBBBBB;
+    font-size: .7vw;
+    width: 3%;
+    max-width: 3%;
+    margin-right: 2px;
+    text-align: center;
+}
+
+.playlist-song-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    margin-right: 2%;
+}
+
+@media only screen and (max-width: 1920px) and (max-height: 1080px) { 
+    .playlist-label-group {
+        gap: 115px;
+    }
+
+    .main-container {
+        height: 410px;
+    }
+
+    .track-name {
+        width: 30%;
+    }
+
+    .time-label {
+        padding-left: 18%;
+    }
 }
