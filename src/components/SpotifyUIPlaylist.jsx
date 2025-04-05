@@ -74,6 +74,23 @@ export default function SpotifyUIPlaylist(props) {
         setPaused((prev) => !prev);
     }
 
+    async function playSong(URI, index) {
+        await fetch(`https://api.spotify.com/v1/me/player/play`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${props.tokenInfo.token}`,
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify({
+                context_uri: `spotify:${props.type}:${URI}`,
+                offset: {
+                    position: index
+                },
+                position_ms: 0
+            })
+        }).catch(handleError);
+    }
+
     async function toggleShuffle() {
         await fetch(`https://api.spotify.com/v1/me/player/shuffle?state=${!isShuffled}`, {
             method: "PUT",
@@ -88,8 +105,8 @@ export default function SpotifyUIPlaylist(props) {
     const playlistItems = playlist.tracks.items.map(
         (song, index) => {
             return (
-                <li key={song.track.id} className="playlist-song-obj">
-                    <button>
+                <li key={index} className="playlist-song-obj">
+                    <button onClick={() => {playSong(props.playlistID, index)}}>
                         <div className="playlist-song-obj-group">
                             <span className="playlist-song-number">{index + 1}</span>
                             <img className="playlist-song-img" src={song.track.album.images[0].url} alt={song.track.album.name}/>
