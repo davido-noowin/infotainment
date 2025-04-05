@@ -5,6 +5,7 @@ import shuffle from "../assets/uiButtons/Shuffle.png";
 import disableShuffle from "../assets/uiButtons/DisableShuffle.png";
 import leftArrow from "../assets/uiButtons/ArrowLeft.png"
 import rightArrow from "../assets/uiButtons/ArrowRight.png"
+import volume from "../assets/uiButtons/Volume.png"
 import "./styles/SpotifyUIPlaylist.css"
 import handleError from "../handleError";
 import { useState, useEffect } from "react"
@@ -37,9 +38,10 @@ const track = {
 }
 
 export default function SpotifyUIPlaylist(props) {
-    const [isShuffled, setShuffle] = useState(false)
-    const [isPaused, setPaused] = useState(false)
-    const [playlist, setPlaylistItems] = useState(track)
+    const [isShuffled, setShuffle] = useState(false);
+    const [isPaused, setPaused] = useState(false);
+    const [playlist, setPlaylistItems] = useState(track);
+    const [currentURI, setCurrentURI] = useState("");
 
     useEffect(() =>{
         props.player.getCurrentState()
@@ -47,6 +49,14 @@ export default function SpotifyUIPlaylist(props) {
                 setShuffle(res.shuffle);
                 setPaused(res.paused);
             });
+
+        props.player.addListener("player_state_changed", (state) => {
+            if (!state) {
+              return;
+            }
+            console.log(state.track_window.current_track.uri);
+            setCurrentURI(state.track_window.current_track.uri);
+          });
         
         async function loadPlaylist(playlistURI) {
             const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`, {
@@ -105,15 +115,15 @@ export default function SpotifyUIPlaylist(props) {
     const playlistItems = playlist.tracks.items.map(
         (song, index) => {
             return (
-                <li key={index} className="playlist-song-obj">
+                <li key={index} className={`playlist-song-obj ${currentURI === song.track.uri ? "active-song" : ""}`}>
                     <button onClick={() => {playSong(props.playlistID, index)}}>
                         <div className="playlist-song-obj-group">
-                            <span className="playlist-song-number">{index + 1}</span>
+                            <span className="playlist-song-number">{currentURI === song.track.uri ? <img src={volume} /> : index + 1}</span>
                             <img className="playlist-song-img" src={song.track.album.images[0].url} alt={song.track.album.name}/>
-                            <span className="playlist-song-details track-name">{song.track.name}</span>
-                            <span className="playlist-song-details artist-name">{song.track.artists[0].name}</span>
-                            <span className="playlist-song-details album-name">{song.track.album.name}</span>
-                            <span className="playlist-song-details time-name">{millisToMinutesAndSeconds(song.track.duration_ms)}</span>
+                            <span className={`playlist-song-details track-name ${currentURI === song.track.uri ? "active-song-details" : ""}`}>{song.track.name}</span>
+                            <span className={`playlist-song-details artist-name ${currentURI === song.track.uri ? "active-song-details" : ""}`}>{song.track.artists[0].name}</span>
+                            <span className={`playlist-song-details album-name ${currentURI === song.track.uri ? "active-song-details" : ""}`}>{song.track.album.name}</span>
+                            <span className={`playlist-song-details time-name ${currentURI === song.track.uri ? "active-song-details" : ""}`}>{millisToMinutesAndSeconds(song.track.duration_ms)}</span>
                         </div>
                     </button>
                 </li>
