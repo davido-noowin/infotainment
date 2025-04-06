@@ -18,7 +18,11 @@ A website built using React meant to display your information and allow you to l
 
 7. Run the application by typing `npm run start` This will fire up the backend server for the Spotify API and the UI.
 
-8. TBA
+8. Select videos to play using the sidebar and login to Spotify to listen to music.
+
+9. Use the built-in Spotify player to listen to your playlists or new songs/albums.
+
+10. Sit back, relax, and enjoy.
 
 ## References 💡
 * [Figma design](https://www.figma.com/design/8GSl8ELzVrjUhudOh2S0vL/infotainment?node-id=6-6&t=3T6RfQAnLcjKlcF4-1)
