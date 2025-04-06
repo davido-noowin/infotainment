@@ -78,8 +78,10 @@
 .header-titles {
     display: flex;
     color: #a6a6a6;
-    gap: 180px;
-    padding-left: 80px;
+    gap: 100px;
+    align-items: center;
+    width: 50%;
+    margin-left: 20%;
 }
 
 .spotify-title-btn {
@@ -111,10 +113,6 @@
 
     .header-bar {
         top: 14.9%;
-    }
-
-    .header-titles {
-        gap: 130px;
     }
 
     .spotify-title-btn {

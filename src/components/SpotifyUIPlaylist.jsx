@@ -56,7 +56,7 @@ export default function SpotifyUIPlaylist(props) {
       if (!state) {
         return;
       }
-      console.log(state.track_window.current_track.uri);
+      // console.log(state.track_window.current_track.uri);
       setCurrentURI(state.track_window.current_track.uri);
     });
 

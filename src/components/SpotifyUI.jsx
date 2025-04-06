@@ -2,7 +2,6 @@ import "./styles/SpotifyUI.css"
 import closeUIButton from "../assets/uiButtons/closeUIButton.png";
 import search from "../assets/uiButtons/Search.png";
 import SpotifyUIHome from "./SpotifyUIHome";
-import SpotifyUIBrowse from "./SpotifyUIBrowse";
 import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
 import { useState } from "react"
 
@@ -34,17 +33,12 @@ export default function SpotifyUI(props) {
                     <div className="header-bar"></div>
                     <div className="header-titles">
                         <button className={`spotify-title-btn ${activeScreen === 'home' ? "active-title" : ""}`} onClick={() => {navigateScreens('home')}}>Home</button>
-                        <button className={`spotify-title-btn ${activeScreen === 'browse' ? "active-title" : ""}`} onClick={() => {navigateScreens('browse')}}>Browse</button>
                         <button className={`spotify-title-btn ${activeScreen === 'my playlists' ? "active-title" : ""}`} onClick={() => {navigateScreens('my playlists')}}>My Playlists</button>
                     </div>
                 </header>
                 {(() => {
                     if (activeScreen === 'home') {
                         return (<SpotifyUIHome player={props.player} tokenInfo={props.tokenInfo} />)
-                    }
-
-                    else if (activeScreen === 'browse') {
-                        return (<SpotifyUIBrowse player={props.player} tokenInfo={props.tokenInfo} />)
                     }
 
                     else if (activeScreen === 'my playlists') {
