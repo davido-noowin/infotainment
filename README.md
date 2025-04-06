@@ -29,6 +29,12 @@ A website built using React meant to display your information and allow you to l
 * [Spotify Web API documentation](https://developer.spotify.com/documentation/web-api)
 * [Spotify Web Playback](https://developer.spotify.com/documentation/web-playback-sdk)
 * [YouTube iFrame API](https://developers.google.com/youtube/iframe_api_reference)
+* [Weather Open-Meteo API)](https://open-meteo.com/en/docs)
 * More TBA
+
 ## Images 🖼️
 Coming soon
+
+## Built With 🔨
+* React
+* Express JS
