@@ -135,10 +135,11 @@ export default function SpotifyUIPlaylist(props) {
         >
           <div className="playlist-song-obj-group">
             <span className="playlist-song-number">
-              {currentURI === song.track.uri ? <img src={volume} /> : index + 1}
+              {currentURI === song.track.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
             </span>
             <img
               className="playlist-song-img"
+              draggable="false"
               src={song.track.album.images[0].url}
               alt={song.track.album.name}
             />
