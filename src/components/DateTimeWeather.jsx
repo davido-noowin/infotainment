@@ -1,14 +1,33 @@
 import Weather from "./Weather.jsx";
 import DateTime from "./DateTime.jsx";
 import "./styles/DateTimeWeather.css"
+import { useState, useEffect } from "react"
 
 // https://www.zippopotam.us/us
 
-export default function DateTimeWeather() {
+export default function DateTimeWeather({ zipcode }) {
+    const [geoPosition, setGeoPosition] = useState({latitude: 0, longitude: 0});
+
+    useEffect(() => {
+        async function getZipcode(zip) {
+            const response = await fetch(`https://www.zippopotam.us/us/${zip}`)
+            if (response.ok) {
+                const json = await response.json();
+                console.log(json)
+                setGeoPosition({
+                    longitude: parseFloat(json.places[0].longitude),
+                    latitude: parseFloat(json.places[0].latitude)
+                })
+            }
+        }
+
+        getZipcode(zipcode)
+    }, [])
+
     return (
         <div className="date-time-weather-container">
             <DateTime />
-            {/* {<Weather latitude={33.787} longitude={-117.923} />} */}
+            <Weather geoPosition={geoPosition} />
         </div>
     )
 }
