@@ -22,7 +22,7 @@ export default function DateTimeWeather({ zipcode }) {
         }
 
         getZipcode(zipcode)
-    }, [])
+    }, [zipcode])
 
     return (
         <div className="date-time-weather-container">
