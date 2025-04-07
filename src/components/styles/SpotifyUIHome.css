@@ -64,4 +64,15 @@
         height: 466px;
     }
 
+    .prev-tracks {
+        height: 78%;
+        column-gap: 20px;
+        row-gap: 15px;
+        margin-top: 50px;
+    }
+
+    .home-playlist-btn {
+        width: 450px;
+    }
+
 }
