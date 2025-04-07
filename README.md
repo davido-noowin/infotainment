@@ -22,7 +22,9 @@ A website built using React meant to display your information and allow you to l
 
 9. Use the built-in Spotify player to listen to your playlists or new songs/albums.
 
-10. Sit back, relax, and enjoy.
+10. Enter zip code for weather updates **_NOTE_**: _Weather readings only work for US-based zip codes_
+
+11. Sit back, relax, and enjoy.
 
 ## References 💡
 * [Figma design](https://www.figma.com/design/8GSl8ELzVrjUhudOh2S0vL/infotainment?node-id=6-6&t=3T6RfQAnLcjKlcF4-1)
