@@ -92,6 +92,35 @@ button {
     padding-top: 24px;
 }
 
+#zipcode-input {
+    margin-left: 5px;
+    width: 40%;
+    height: 40px;
+    font-size: 24px;
+    border-radius: 10px;
+    border: none;
+    color: #505050;
+    background-color: #DDDDDD;
+}
+
+#zipcode-input:focus {
+    outline: none;
+}
+
+.zip-btn {
+    margin-left: 2%;
+    width: 90px;
+    background-color: #676767;
+    text-align: center;
+    color: #DDDDDD;
+    font-size: 24px;
+    border-radius: 15px;
+}
+
+.zip-btn:hover {
+    background-color: #505050;
+}
+
 .video-src {
     position: absolute;
     bottom: 0;

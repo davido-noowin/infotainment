@@ -146,14 +146,13 @@ export default function UIBar({
           </div>
           <div className="weather-input">
             <h2>Zip Code for Weather</h2>
-            <form action={processZip}>
+            <form id="zip-form" action={processZip}>
               <input
                 id="zipcode-input"
                 name="zip"
                 type="text"
                 autoComplete="off"
                 placeholder="e.g. 90210"
-                defaultValue={90210}
               ></input>
               <button type="submit" className="zip-btn">
                 Submit
