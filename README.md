@@ -38,3 +38,4 @@ Coming soon
 ## Built With 🔨
 * React
 * Express JS
+* Vite
