@@ -4,7 +4,7 @@ export default function SpotifyUIHome(props) {
     const availablePlaylists = props.playlistsToDisplay.map((playlist) => {
         return (
             <button key={playlist.id} className="home-playlist-btn">
-                <img draggable="false" src={playlist.images[0].url} alt={playlist.name} />
+                <img className="home-playlist-img" draggable="false" src={playlist.images[0].url} alt={playlist.name} />
                 <p>{playlist.name}</p>
             </button>
         )

@@ -169,7 +169,7 @@ export default function SpotifyUI(props) {
               <SpotifyUIHome
                 player={props.player}
                 tokenInfo={props.tokenInfo}
-                playlistsToDisplay={playlistsToDisplay}
+                playlistsToDisplay={playlistsToDisplay.slice(0, 6)}
                 displayName={displayName}
               />
             );
