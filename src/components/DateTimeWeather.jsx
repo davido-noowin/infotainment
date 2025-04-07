@@ -10,7 +10,7 @@ export default function DateTimeWeather({ zipcode }) {
 
     useEffect(() => {
         async function getZipcode(zip) {
-            if (typeof(zip) === 'string') {
+            if (typeof(zip) === 'string' || zip === 0) {
                 return
             }
             const response = await fetch(`https://www.zippopotam.us/us/${zip}`)
@@ -30,7 +30,7 @@ export default function DateTimeWeather({ zipcode }) {
     return (
         <div className="date-time-weather-container">
             <DateTime />
-            <Weather geoPosition={geoPosition} />
+            {zipcode !== 0 && <Weather geoPosition={geoPosition} />}
         </div>
     )
 }
