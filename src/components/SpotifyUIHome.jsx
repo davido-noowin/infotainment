@@ -1,34 +1,23 @@
 import "./styles/SpotifyUIHome.css"
-import { useState, useEffect } from "react"
-import handleError from "../handleError";
-
 
 export default function SpotifyUIHome(props) {
-    const [displayName, setDisplayName] = useState("");
-
-    useEffect(() => {
-        async function getUser() {
-            const response = await fetch("https://api.spotify.com/v1/me", {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${props.tokenInfo.token}`,
-                    "Content-Type": "application/json",
-                  }
-            }).catch(handleError);
-            if (response.ok) {
-                const json = await response.json();
-                // console.log(json);
-                setDisplayName(json.display_name);
-            }
-        }
-
-        getUser();
-    }, [])
-
+    const availablePlaylists = props.playlistsToDisplay.map((playlist) => {
+        return (
+            <button key={playlist.id} className="home-playlist-btn">
+                <img draggable="false" src={playlist.images[0].url} alt={playlist.name} />
+                <p>{playlist.name}</p>
+            </button>
+        )
+    })
 
     return (
         <div className="spotify-home-container">
-            <h1 className="spotify-home-welcome">Hello, {displayName.split(" ")[0]}</h1>
+            <div className="home-header">
+                <h1 className="spotify-home-welcome">Hello, {props.displayName.split(" ")[0]}</h1>
+            </div>
+            <div className="prev-tracks">
+                {availablePlaylists}
+            </div>
         </div>
     )
 }

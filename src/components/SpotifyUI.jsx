@@ -3,10 +3,103 @@ import closeUIButton from "../assets/uiButtons/closeUIButton.png";
 import search from "../assets/uiButtons/Search.png";
 import SpotifyUIHome from "./SpotifyUIHome";
 import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
-import { useState } from "react"
+import handleError from "../handleError";
+import { useState, useEffect } from "react"
+
+const playlistInfo = [{
+    images: [ { url: null } ],
+    name: "",
+    id: ""
+}]
+
+function fetchPlaylists(token) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch("https://api.spotify.com/v1/me/player/recently-played?limit=50", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                  }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const json = await response.json();
+            const filteredPlaylists = new Set();
+            json.items.forEach((track) => {
+                if (track.context.type === "playlist") {
+                    filteredPlaylists.add(track.context.uri.split(":")[2]);
+                }
+            })
+            resolve(Array.from(filteredPlaylists));
+        }
+        catch (error) {
+            reject(error);
+        }
+    })
+}
+
+function fetchPlaylistDetails(token, id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${id}?fields=name%2Cimages%28url%29%2C+id`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const json = await response.json();
+            resolve(json);
+        }
+        catch (error) {
+            reject(error);
+        }
+    })
+}
 
 export default function SpotifyUI(props) {
     const [activeScreen, setActiveScreen] = useState('home');
+    const [playlistsToDisplay, setPlaylistsToDisplay] = useState(playlistInfo);
+    const [displayName, setDisplayName] = useState("");
+
+    useEffect(() => {
+        async function getUser() {
+            const response = await fetch("https://api.spotify.com/v1/me", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${props.tokenInfo.token}`,
+                    "Content-Type": "application/json",
+                  }
+            }).catch(handleError);
+            if (response.ok) {
+                const json = await response.json();
+                // console.log(json);
+                setDisplayName(json.display_name);
+            }
+        }
+
+        async function aggregrateTracks(token) {
+            const results = [];
+            fetchPlaylists(token)
+                .then(data => {
+                    data.forEach((track) => {
+                            fetchPlaylistDetails(token, track)
+                                .then(data => results.push(data))
+                    })
+            })
+            console.log(results);
+            setPlaylistsToDisplay(results);
+        }
+
+        aggregrateTracks(props.tokenInfo.token);
+        getUser();
+    }, [])
 
     function navigateScreens(screen) {
         setActiveScreen(screen);
@@ -38,7 +131,7 @@ export default function SpotifyUI(props) {
                 </header>
                 {(() => {
                     if (activeScreen === 'home') {
-                        return (<SpotifyUIHome player={props.player} tokenInfo={props.tokenInfo} />)
+                        return (<SpotifyUIHome player={props.player} tokenInfo={props.tokenInfo} playlistsToDisplay={playlistsToDisplay} displayName={displayName} />)
                     }
 
                     else if (activeScreen === 'my playlists') {
