@@ -20,6 +20,7 @@ export default function UIBar({
   handleSideBarChange,
   toggleMusicPlayer,
   toggleSpotifyUI,
+  setZipcode,
 }) {
   const [videoIDFromSelector, setVideoIDFromSelector] = useState("LRmNqKw6Ly0");
   const [isMuted, setIsMuted] = useState(true);
@@ -96,6 +97,11 @@ export default function UIBar({
     setSliderValue(event.target.value);
   }
 
+  function processZip(formData) {
+    const zipcode = formData.get("zip");
+    setZipcode(zipcode);
+  }
+
   return (
     <>
       {sideBarOpen ? (
@@ -112,14 +118,14 @@ export default function UIBar({
                 </button>
               ) : (
                 <button onClick={handleFullscreen.enter}>
-                  <img src={fullScreenButton} alt="enter full screen"/>
+                  <img src={fullScreenButton} alt="enter full screen" />
                 </button>
               )}
               <button onClick={() => toggleMusicPlayer(true)}>
-                <img src={musicPlayerButton} alt="music player"/>
+                <img src={musicPlayerButton} alt="music player" />
               </button>
               <button onClick={() => toggleSpotifyUI(true)}>
-                <img src={spotifyButton} alt="open spotify"/>
+                <img src={spotifyButton} alt="open spotify" />
               </button>
             </div>
           </div>
@@ -138,6 +144,30 @@ export default function UIBar({
               handleChange={updateVolume}
             />
           </div>
+          <div className="weather-input">
+            <h2>Zip Code for Weather</h2>
+            <form action={processZip}>
+              <input
+                id="zipcode-input"
+                name="zip"
+                type="text"
+                autoComplete="off"
+                placeholder="e.g. 90210"
+                defaultValue={90210}
+              ></input>
+              <button type="submit" className="zip-btn">
+                Submit
+              </button>
+            </form>
+          </div>
+          <div className="video-src">
+            <a
+              href={`https://www.youtube.com/watch?v=${videoIDFromSelector}`}
+              target="_blank"
+            >
+              <p>Video Source</p>
+            </a>
+          </div>
         </div>
       ) : (
         <div className="ui-bar-no-bg">
@@ -148,18 +178,18 @@ export default function UIBar({
               </button>
               {handleFullscreen.active ? (
                 <button onClick={handleFullscreen.exit}>
-                  <img src={shrinkScreenOpaqueButton} alt="exit full screen"/>
+                  <img src={shrinkScreenOpaqueButton} alt="exit full screen" />
                 </button>
               ) : (
                 <button onClick={handleFullscreen.enter}>
-                  <img src={fullScreenOpaqueButton} alt="enter full screen"/>
+                  <img src={fullScreenOpaqueButton} alt="enter full screen" />
                 </button>
               )}
               <button onClick={() => toggleMusicPlayer(true)}>
-                <img src={musicPlayerOpaqueButton} alt="music player"/>
+                <img src={musicPlayerOpaqueButton} alt="music player" />
               </button>
               <button onClick={() => toggleSpotifyUI(true)}>
-                <img src={spotifyOpaqueButton} alt="open spotify"/>
+                <img src={spotifyOpaqueButton} alt="open spotify" />
               </button>
             </div>
           </div>

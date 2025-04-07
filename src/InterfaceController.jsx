@@ -9,6 +9,7 @@ export default function InterfaceController() {
   const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
   const [musicPlayerIsOpen, setMusicPlayer] = useState(true);
   const [spotifyUIIsOpen, setSpotifyUI] = useState(false);
+  const [zipcode, setZipcode] = useState(90210);
 
   function toggleSideBar() {
     setUIBarIsOpen((prev) => !prev);
@@ -25,7 +26,7 @@ export default function InterfaceController() {
   return (
     <>
       <FullScreen handle={handle}>
-        <DateTimeWeather />
+        <DateTimeWeather zipcode={zipcode}/>
         <MusicBar
           musicPlayerIsOpen={musicPlayerIsOpen}
           sideBarOpen={uiBarIsOpen}
@@ -39,6 +40,7 @@ export default function InterfaceController() {
           handleSideBarChange={toggleSideBar}
           toggleMusicPlayer={toggleMusicPlayer}
           toggleSpotifyUI={toggleSpotifyUI}
+          setZipcode={setZipcode}
         />
       </FullScreen>
     </>

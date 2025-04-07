@@ -74,6 +74,14 @@ button {
     padding-left: 3px;
 }
 
+.weather-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 12%;
+    padding-left: 3px;
+}
+
 .button-array {
     display: flex;
     flex-direction: column;
@@ -82,4 +90,15 @@ button {
     height: 100%;
     z-index: 10;
     padding-top: 24px;
+}
+
+.video-src {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+.video-src > a {
+    color: #DDDDDD;
+    font-size: 16px;
 }
