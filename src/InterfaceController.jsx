@@ -9,7 +9,7 @@ export default function InterfaceController() {
   const [uiBarIsOpen, setUIBarIsOpen] = useState(true);
   const [musicPlayerIsOpen, setMusicPlayer] = useState(true);
   const [spotifyUIIsOpen, setSpotifyUI] = useState(false);
-  const [zipcode, setZipcode] = useState(0);
+  const [zipcode, setZipcode] = useState(null);
 
   function toggleSideBar() {
     setUIBarIsOpen((prev) => !prev);

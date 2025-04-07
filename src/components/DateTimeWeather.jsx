@@ -10,7 +10,8 @@ export default function DateTimeWeather({ zipcode }) {
 
     useEffect(() => {
         async function getZipcode(zip) {
-            if (typeof(zip) === 'string' || zip === 0) {
+            if (isNaN(zip)) {
+                console.log(zip, "exiting...")
                 return
             }
             const response = await fetch(`https://www.zippopotam.us/us/${zip}`)

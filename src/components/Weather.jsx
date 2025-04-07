@@ -29,8 +29,11 @@ export default function Weather(props) {
             "models": "gfs_seamless"
         };
         fetchWeatherApi(weatherURL, weatherParams)
-            .then((data) => setWeatherResponse(data[0]));
+            .then((data) => {
+                setWeatherResponse(data[0])
+            });
         console.log("getting weather info")
+        
     }, [props.geoPosition])
 
     let dayOrNight = isDayOrNight();
