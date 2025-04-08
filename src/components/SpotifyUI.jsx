@@ -6,7 +6,6 @@ import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
 import SpotifyUISearch from "./SpotifyUISearch";
 import handleError from "../handleError";
 import { useState, useEffect } from "react";
-import results from "../assets/search"
 
 const playlistInfo = [
   {
@@ -116,7 +115,21 @@ export default function SpotifyUI(props) {
     navigateScreens("searching");
     const query = formData.get("query");
     console.log("you searched for", query);
-    setSearchResults(results);
+    const response = await fetch(
+      `https://api.spotify.com/v1/search?q=${query}&type=track%2Calbum%2Cplaylist&market=us&limit=8`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${props.tokenInfo.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    ).catch(handleError);
+    if (response.ok) {
+      const json = await response.json();
+      // console.log(json);
+      setSearchResults(json);
+    }
   }
 
   return (
@@ -186,7 +199,7 @@ export default function SpotifyUI(props) {
             );
           } else if (activeScreen === "searching") {
             return (
-              <SpotifyUISearch 
+              <SpotifyUISearch
                 player={props.player}
                 tokenInfo={props.tokenInfo}
                 searchResults={searchResults}
