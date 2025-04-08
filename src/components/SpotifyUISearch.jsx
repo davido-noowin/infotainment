@@ -1,6 +1,7 @@
 import SpotifyUIPlaylist from "./SpotifyUIPlaylist";
 import "./styles/SpotifyUISearch.css"
-import { useState } from "react"
+import { PlayerStateContext } from "./MusicBar";
+import { useState, useContext } from "react"
 
 function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
@@ -12,6 +13,7 @@ export default function SpotifyUISearch(props) {
     const [playlistScreen, setPlaylistScreen] = useState(false);
     const [playlistID, setPlaylistID] = useState("");
     const [playlistType, setPlaylistType] = useState("playlist");
+    const playerState = useContext(PlayerStateContext);
     const tracks = props.searchResults.tracks;
     const albums = props.searchResults.albums;
     const playlists = props.searchResults.playlists;
@@ -23,11 +25,24 @@ export default function SpotifyUISearch(props) {
         setPlaylistID(id);
     }
 
+    async function playTrack(trackURI) {
+        await fetch(`https://api.spotify.com/v1/me/player/play`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${props.tokenInfo.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                uris: [trackURI],
+              }),
+        }).catch(handleError);
+    }
+
     const searchTracks = tracks.items
     .filter(element => element)
     .map((track) => {
         return (
-            <button key={track.id} className="search-track-btn">
+            <button key={track.id} className={`search-track-btn ${playerState.uri === track.uri ? "active-song" : ""}`} onClick={() => playTrack(track.uri)}>
                 <div className="track-song-info">
                     <img className="track-cover" draggable="false" src={track.album.images[0].url} alt={track.album.name} />
                     <div className="song-and-artist-search">
