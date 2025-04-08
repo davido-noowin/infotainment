@@ -9,11 +9,13 @@ export default function SpotifyUISearch(props) {
 
     const searchTracks = tracks.items.map((track) => {
         return (
-            <button key={track.id}>
-                <img draggable="false" src={track.album.images[0].url} alt={track.album.name} />
-                <div className="song-and-artist">
-                    <p>{track.name}</p>
-                    <p>{track.artists[0].name}</p>
+            <button key={track.id} className="search-track-btn">
+                <div className="track-song-info">
+                    <img className="track-cover" draggable="false" src={track.album.images[0].url} alt={track.album.name} />
+                    <div className="song-and-artist">
+                        <h3>{track.name}</h3>
+                        <p>{track.artists[0].name}</p>
+                    </div>
                 </div>
                 <span>{millisToMinutesAndSeconds(track.duration_ms)}</span>
             </button>
@@ -22,7 +24,7 @@ export default function SpotifyUISearch(props) {
 
     const searchAlbums = albums.items.map((album) => {
         return (
-            <button key={album.id}>
+            <button key={album.id} className="search-album-btn">
                 <img draggable="false" src={album.images[0].url} alt={album.name} />
                 <div className="album-name-and-artist">
                     <h3>{album.name}</h3>

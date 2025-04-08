@@ -2,10 +2,64 @@
     width: 100%;
     height: 615px;
     overflow-y: scroll;
+    gap: 19px;
 }
 
 .search-labels {
     color: #DDDDDD;
     font-size: 42px;
     margin-left: 3%;
+}
+
+.search-track-btn {
+    margin-left: 3%;
+    width: 91%;
+    height: 75px;
+    background-color: #505050;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 19px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.search-track-btn > span {
+    color: #a6a6a6;
+    font-size: 24px;
+    margin-right: 2%;
+}
+
+.search-track-btn:hover {
+    background-color: #868686;
+}
+
+.track-cover {
+    width: 66px;
+    height: 66px;
+    margin-left: 0.5%;
+    border-radius: 5px;
+}
+
+.track-song-info {
+    display: flex;
+    width: 100%;
+}
+
+.song-and-artist {
+    display: flex;
+    position: relative;
+    margin-left: 0.5%;
+    width: 100%;
+}
+
+.song-and-artist > h3 {
+    color: #DDDDDD;
+    font-size: 28px;
+}
+
+.song-and-artist > p {
+    margin: 0;
+    color: #a6a6a6;
+    font-size: 24px;
 }
