@@ -3,8 +3,10 @@ import closeUIButton from "../assets/uiButtons/closeUIButton.png";
 import search from "../assets/uiButtons/Search.png";
 import SpotifyUIHome from "./SpotifyUIHome";
 import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
+import SpotifyUISearch from "./SpotifyUISearch";
 import handleError from "../handleError";
 import { useState, useEffect } from "react";
+import results from "../assets/search"
 
 const playlistInfo = [
   {
@@ -73,6 +75,7 @@ export default function SpotifyUI(props) {
   const [activeScreen, setActiveScreen] = useState("home");
   const [playlistsToDisplay, setPlaylistsToDisplay] = useState(playlistInfo);
   const [displayName, setDisplayName] = useState("");
+  const [searchResults, setSearchResults] = useState(undefined);
 
   useEffect(() => {
     async function getUser() {
@@ -109,10 +112,11 @@ export default function SpotifyUI(props) {
     setActiveScreen(screen);
   }
 
-  function searchSong(formData) {
+  async function searchSong(formData) {
     navigateScreens("searching");
     const query = formData.get("query");
     console.log("you searched for", query);
+    setSearchResults(results);
   }
 
   return (
@@ -181,7 +185,13 @@ export default function SpotifyUI(props) {
               />
             );
           } else if (activeScreen === "searching") {
-            return <p>i am a searchin</p>;
+            return (
+              <SpotifyUISearch 
+                player={props.player}
+                tokenInfo={props.tokenInfo}
+                searchResults={searchResults}
+              />
+            );
           } else {
             return null;
           }

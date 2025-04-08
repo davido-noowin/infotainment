@@ -1,0 +1,11 @@
+.search-container {
+    width: 100%;
+    height: 615px;
+    overflow-y: scroll;
+}
+
+.search-labels {
+    color: #DDDDDD;
+    font-size: 42px;
+    margin-left: 3%;
+}
