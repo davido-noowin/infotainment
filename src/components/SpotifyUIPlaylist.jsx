@@ -54,14 +54,6 @@ export default function SpotifyUIPlaylist(props) {
       setPaused(res.paused);
     });
 
-    props.player.addListener("player_state_changed", (state) => {
-      if (!state) {
-        return;
-      }
-      // console.log(state.track_window.current_track.uri);
-      setCurrentURI(state.track_window.current_track.uri);
-    });
-
     async function loadPlaylist(playlistURI) {
       const response = await fetch(
         `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`,
