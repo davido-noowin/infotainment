@@ -31,7 +31,7 @@ export default function DateTimeWeather({ zipcode }) {
     return (
         <div className="date-time-weather-container">
             <DateTime />
-            {zipcode !== 0 && <Weather geoPosition={geoPosition} />}
+            {zipcode !== null && <Weather geoPosition={geoPosition} />}
         </div>
     )
 }
