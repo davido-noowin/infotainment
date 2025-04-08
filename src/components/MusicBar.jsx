@@ -4,7 +4,9 @@ import SpotifyWebPlayback from "./SpotifyWebPlayback";
 import hideMusicPlayer from "../assets/uiButtons/HideMusicPlayer.png";
 import SpotifyUI from "./SpotifyUI";
 import handleError from "../handleError";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
+
+export const URIContext = createContext();
 
 export default function MusicBar(props) {
   const [tokenObject, setToken] = useState({
@@ -13,6 +15,7 @@ export default function MusicBar(props) {
     expiresIn: 0,
   });
   const [player, setPlayer] = useState(undefined);
+  const [currentURI, setCurrentURI] = useState("");
   // console.log("IN MUSIC PLAYER", tokenObject);
 
   useEffect(() => {
@@ -37,12 +40,14 @@ export default function MusicBar(props) {
   return (
     <>
       {tokenObject.token !== "" ? (
-        <SpotifyUI
-          tokenInfo={tokenObject}
-          player={player}
-          toggleSpotifyUI={props.toggleSpotifyUI}
-          spotifyUIIsOpen={props.spotifyUIIsOpen}
-        />
+        <URIContext.Provider value={currentURI}>
+          <SpotifyUI
+            tokenInfo={tokenObject}
+            player={player}
+            toggleSpotifyUI={props.toggleSpotifyUI}
+            spotifyUIIsOpen={props.spotifyUIIsOpen}
+          />
+        </URIContext.Provider>
       ) : null}
 
       <div
@@ -58,6 +63,7 @@ export default function MusicBar(props) {
             updateToken={setToken}
             player={player}
             updatePlayer={setPlayer}
+            setURI={setCurrentURI}
           />
         )}
         <button

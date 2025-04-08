@@ -8,7 +8,8 @@ import rightArrow from "../assets/uiButtons/ArrowRight.png";
 import volume from "../assets/uiButtons/Volume.png";
 import "./styles/SpotifyUIPlaylist.css";
 import handleError from "../handleError";
-import { useState, useEffect } from "react";
+import { URIContext } from "./MusicBar";
+import { useState, useEffect, useContext } from "react";
 
 export function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
@@ -45,7 +46,7 @@ export default function SpotifyUIPlaylist(props) {
   const [isPaused, setPaused] = useState(false);
   const [playlist, setPlaylistItems] = useState(track);
   const [album, setAlbum] = useState(null);
-  const [currentURI, setCurrentURI] = useState("");
+  const currentURI = useContext(URIContext);
 
   useEffect(() => {
     props.player.getCurrentState().then((res) => {
@@ -90,7 +91,7 @@ export default function SpotifyUIPlaylist(props) {
     ).catch(handleError);
     if (response.ok) {
       const json = await response.json();
-      console.log(json);
+      // console.log(json);
       setAlbum(json);
     }
   }

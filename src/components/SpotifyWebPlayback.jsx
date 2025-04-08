@@ -83,6 +83,7 @@ export default function SpotifyWebPlayback(props) {
 
         setTrack(state.track_window.current_track);
         setPaused(state.paused);
+        props.setURI(state.track_window.current_track.uri);
       });
 
       player.connect();
