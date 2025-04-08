@@ -2,7 +2,7 @@ import DateTimeWeather from "./components/DateTimeWeather";
 import UIBar from "./components/UIBar";
 import MusicBar from "./components/MusicBar";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function InterfaceController() {
   const handle = useFullScreenHandle();
