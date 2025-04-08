@@ -44,6 +44,7 @@ export default function SpotifyUIPlaylist(props) {
   const [isShuffled, setShuffle] = useState(false);
   const [isPaused, setPaused] = useState(false);
   const [playlist, setPlaylistItems] = useState(track);
+  const [album, setAlbum] = useState(null);
   const [currentURI, setCurrentURI] = useState("");
 
   useEffect(() => {
@@ -77,7 +78,30 @@ export default function SpotifyUIPlaylist(props) {
         setPlaylistItems(json);
       }
     }
-    loadPlaylist(props.playlistID);
+
+    async function loadAlbum(playlistURI) {
+      const response = await fetch(`https://api.spotify.com/v1/albums/${playlistURI}?market=us`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${props.tokenInfo.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    ).catch(handleError);
+    if (response.ok) {
+      const json = await response.json();
+      console.log(json);
+      setAlbum(json);
+    }
+  }
+
+    if (props.type === "playlist") {
+      loadPlaylist(props.playlistID);
+    }
+    else if (props.type === "album") {
+      loadAlbum(props.playlistID);
+    }
+
   }, []);
 
   function closePlaylist() {
@@ -177,6 +201,66 @@ export default function SpotifyUIPlaylist(props) {
     );
   });
 
+  let albumItems;
+  if (album) {
+    albumItems = album.tracks.items.map((song, index) => {
+      return (
+        <li
+          key={index}
+          className={`playlist-song-obj ${
+            currentURI === song.uri ? "active-song" : ""
+          }`}
+        >
+          <button
+            onClick={() => {
+              playSong(props.playlistID, index);
+            }}
+          >
+            <div className="playlist-song-obj-group">
+              <span className="playlist-song-number">
+                {currentURI === song.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
+              </span>
+              <img
+                className="playlist-song-img"
+                draggable="false"
+                src={album.images[0].url}
+                alt={album.name}
+              />
+              <span
+                className={`playlist-song-details track-name ${
+                  currentURI === song.uri ? "active-song-details" : ""
+                }`}
+              >
+                {song.name}
+              </span>
+              <span
+                className={`playlist-song-details artist-name ${
+                  currentURI === song.uri ? "active-song-details" : ""
+                }`}
+              >
+                {album.artists[0].name}
+              </span>
+              <span
+                className={`playlist-song-details album-name ${
+                  currentURI === song.uri ? "active-song-details" : ""
+                }`}
+              >
+                {album.name}
+              </span>
+              <span
+                className={`playlist-song-details time-name ${
+                  currentURI === song.uri ? "active-song-details" : ""
+                }`}
+              >
+                {millisToMinutesAndSeconds(song.duration_ms)}
+              </span>
+            </div>
+          </button>
+        </li>
+      );
+    });
+  }
+
   return (
     <div className="spotify-playlist-container">
       <button className="close-playlist-btn" onClick={closePlaylist}>
@@ -186,12 +270,12 @@ export default function SpotifyUIPlaylist(props) {
         <div className="playlist-title-section">
           <img
             className="playlist-img-cover"
-            src={playlist.images[0].url}
-            alt={playlist.name}
+            src={album !== null ? album.images[0].url : playlist.images[0].url}
+            alt={album !== null ? album.name : playlist.name}
           />
           <div className="playlist-title-and-creator">
-            <h1>{playlist.name}</h1>
-            <p>{playlist.owner.display_name}</p>
+            <h1>{album !== null ? album.name : playlist.name}</h1>
+            <p>{album !== null ? album.artists[0].name : playlist.owner.display_name}</p>
           </div>
         </div>
         <div className="playlist-btn-group">
@@ -220,7 +304,7 @@ export default function SpotifyUIPlaylist(props) {
           <p className="playlist-label time-label">Time</p>
         </div>
         <div className="playlist-label-linebreak"></div>
-        <ul className="playlist-songs">{playlistItems}</ul>
+        <ul className="playlist-songs">{album !== null ? albumItems : playlistItems}</ul>
       </div>
     </div>
   );

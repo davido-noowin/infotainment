@@ -13,9 +13,9 @@ export default function SpotifyUISearch(props) {
 
 
     function selectPlaylist(id, type) {
+        setPlaylistType(type);
         setPlaylistScreen((prev) => !prev);
         setPlaylistID(id);
-        setPlaylistType(type);
     }
 
     const searchTracks = tracks.items
@@ -39,7 +39,9 @@ export default function SpotifyUISearch(props) {
     .filter(element => element)
     .map((album) => {
         return (
-            <button key={album.id} className="search-album-btn">
+            <button key={album.id} className="search-album-btn" onClick={() => {
+                selectPlaylist(album.id, "album")
+            }}>
                 <img className="cover-img" draggable="false" src={album.images[0].url} alt={album.name} />
                 <div className="album-name-and-artist">
                     <h3>{album.name}</h3>
