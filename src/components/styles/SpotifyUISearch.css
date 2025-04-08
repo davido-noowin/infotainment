@@ -133,4 +133,9 @@
     .search-container {
         height: 450px;
     }
+
+    .search-selection {
+        grid-template-columns: repeat(4, 200px);
+        column-gap: 60px;
+    }
 }
