@@ -8,10 +8,10 @@ import rightArrow from "../assets/uiButtons/ArrowRight.png";
 import volume from "../assets/uiButtons/Volume.png";
 import "./styles/SpotifyUIPlaylist.css";
 import handleError from "../handleError";
-import { URIContext } from "./MusicBar";
+import { PlayerStateContext } from "./MusicBar";
 import { useState, useEffect, useContext } from "react";
 
-export function millisToMinutesAndSeconds(millis) {
+function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
@@ -42,18 +42,11 @@ const track = {
 };
 
 export default function SpotifyUIPlaylist(props) {
-  const [isShuffled, setShuffle] = useState(false);
-  const [isPaused, setPaused] = useState(false);
   const [playlist, setPlaylistItems] = useState(track);
   const [album, setAlbum] = useState(null);
-  const currentURI = useContext(URIContext);
+  const playerState = useContext(PlayerStateContext);
 
   useEffect(() => {
-    props.player.getCurrentState().then((res) => {
-      setShuffle(res.shuffle);
-      setPaused(res.paused);
-    });
-
     async function loadPlaylist(playlistURI) {
       const response = await fetch(
         `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`,
@@ -103,7 +96,6 @@ export default function SpotifyUIPlaylist(props) {
 
   function togglePlay() {
     props.player.togglePlay();
-    setPaused((prev) => !prev);
   }
 
   async function playSong(URI, index) {
@@ -125,7 +117,7 @@ export default function SpotifyUIPlaylist(props) {
 
   async function toggleShuffle() {
     await fetch(
-      `https://api.spotify.com/v1/me/player/shuffle?state=${!isShuffled}`,
+      `https://api.spotify.com/v1/me/player/shuffle?state=${!playerState.shuffle}`,
       {
         method: "PUT",
         headers: {
@@ -134,7 +126,6 @@ export default function SpotifyUIPlaylist(props) {
         },
       }
     ).catch(handleError);
-    setShuffle((prev) => !prev);
   }
 
   const playlistItems = playlist.tracks.items.map((song, index) => {
@@ -142,7 +133,7 @@ export default function SpotifyUIPlaylist(props) {
       <li
         key={index}
         className={`playlist-song-obj ${
-          currentURI === song.track.uri ? "active-song" : ""
+          playerState.uri === song.track.uri ? "active-song" : ""
         }`}
       >
         <button
@@ -152,7 +143,7 @@ export default function SpotifyUIPlaylist(props) {
         >
           <div className="playlist-song-obj-group">
             <span className="playlist-song-number">
-              {currentURI === song.track.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
+              {playerState.uri === song.track.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
             </span>
             <img
               className="playlist-song-img"
@@ -162,28 +153,28 @@ export default function SpotifyUIPlaylist(props) {
             />
             <span
               className={`playlist-song-details track-name ${
-                currentURI === song.track.uri ? "active-song-details" : ""
+                playerState.uri === song.track.uri ? "active-song-details" : ""
               }`}
             >
               {song.track.name}
             </span>
             <span
               className={`playlist-song-details artist-name ${
-                currentURI === song.track.uri ? "active-song-details" : ""
+                playerState.uri === song.track.uri ? "active-song-details" : ""
               }`}
             >
               {song.track.artists[0].name}
             </span>
             <span
               className={`playlist-song-details album-name ${
-                currentURI === song.track.uri ? "active-song-details" : ""
+                playerState.uri === song.track.uri ? "active-song-details" : ""
               }`}
             >
               {song.track.album.name}
             </span>
             <span
               className={`playlist-song-details time-name ${
-                currentURI === song.track.uri ? "active-song-details" : ""
+                playerState.uri === song.track.uri ? "active-song-details" : ""
               }`}
             >
               {millisToMinutesAndSeconds(song.track.duration_ms)}
@@ -201,7 +192,7 @@ export default function SpotifyUIPlaylist(props) {
         <li
           key={index}
           className={`playlist-song-obj ${
-            currentURI === song.uri ? "active-song" : ""
+            playerState.uri === song.uri ? "active-song" : ""
           }`}
         >
           <button
@@ -211,7 +202,7 @@ export default function SpotifyUIPlaylist(props) {
           >
             <div className="playlist-song-obj-group">
               <span className="playlist-song-number">
-                {currentURI === song.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
+                {playerState.uri === song.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
               </span>
               <img
                 className="playlist-song-img"
@@ -221,28 +212,28 @@ export default function SpotifyUIPlaylist(props) {
               />
               <span
                 className={`playlist-song-details track-name ${
-                  currentURI === song.uri ? "active-song-details" : ""
+                  playerState.uri === song.uri ? "active-song-details" : ""
                 }`}
               >
                 {song.name}
               </span>
               <span
                 className={`playlist-song-details artist-name ${
-                  currentURI === song.uri ? "active-song-details" : ""
+                  playerState.uri === song.uri ? "active-song-details" : ""
                 }`}
               >
                 {album.artists[0].name}
               </span>
               <span
                 className={`playlist-song-details album-name ${
-                  currentURI === song.uri ? "active-song-details" : ""
+                  playerState.uri === song.uri ? "active-song-details" : ""
                 }`}
               >
                 {album.name}
               </span>
               <span
                 className={`playlist-song-details time-name ${
-                  currentURI === song.uri ? "active-song-details" : ""
+                  playerState.uri === song.uri ? "active-song-details" : ""
                 }`}
               >
                 {millisToMinutesAndSeconds(song.duration_ms)}
@@ -274,10 +265,10 @@ export default function SpotifyUIPlaylist(props) {
         <div className="playlist-btn-group">
           <div className="song-control-btn-group">
             <button className="song-control-btn" onClick={togglePlay}>
-              <img src={isPaused ? play : pause} />
+              <img src={playerState.paused ? play : pause} />
             </button>
             <button className="song-control-btn" onClick={toggleShuffle}>
-              <img src={isShuffled ? shuffle : disableShuffle} />
+              <img src={playerState.shuffle ? shuffle : disableShuffle} />
             </button>
           </div>
           <div className="pagination-btn-group">

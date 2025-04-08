@@ -16,7 +16,6 @@ const track = {
 };
 
 export default function SpotifyWebPlayback(props) {
-  const [isPaused, setPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [sliderValue, setSliderValue] = useState(20);
   const [currentTrack, setTrack] = useState(track);
@@ -82,7 +81,8 @@ export default function SpotifyWebPlayback(props) {
         }
 
         setTrack(state.track_window.current_track);
-        setPaused(state.paused);
+        props.setPaused(state.paused);
+        props.setShuffle(state.shuffle);
         props.setURI(state.track_window.current_track.uri);
       });
 
@@ -162,8 +162,8 @@ export default function SpotifyWebPlayback(props) {
               }}
             >
               <img
-                src={isPaused ? play : pause}
-                alt={isPaused ? "PLAY" : "PAUSE"}
+                src={props.isPaused ? play : pause}
+                alt={props.isPaused ? "PLAY" : "PAUSE"}
               />
             </button>
             <button
