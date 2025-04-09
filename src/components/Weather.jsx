@@ -22,7 +22,7 @@ export default function Weather(props) {
             "hourly": "temperature_2m",
             "daily": "weather_code",
             "temperature_unit": "fahrenheit",
-            "timezone": "America/Los_Angeles",
+            "timezone": "auto",
             "wind_speed_unit": "mph",
             "precipitation_unit": "inch",
             "forecast_days": 1,
