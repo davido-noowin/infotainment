@@ -47,9 +47,20 @@ export default function SpotifyUIPlaylist(props) {
   const playerState = useContext(PlayerStateContext);
 
   useEffect(() => {
-    async function loadPlaylist(playlistURI) {
+    async function loadPlaylistOrAlbum(playlistURI) {
+      var fetchString;
+      if (props.type === "playlist") {
+        fetchString = `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`;
+      }
+      else if (props.type === "album") {
+        fetchString = `https://api.spotify.com/v1/albums/${playlistURI}?market=us`
+      }
+      else {
+        return;
+      }
+
       const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`,
+        fetchString,
         {
           method: "GET",
           headers: {
@@ -61,33 +72,11 @@ export default function SpotifyUIPlaylist(props) {
       if (response.ok) {
         const json = await response.json();
         // console.log(json);
-        setPlaylistItems(json);
+        props.type === "playlist" ? setPlaylistItems(json) : setAlbum(json);
       }
     }
 
-    async function loadAlbum(playlistURI) {
-      const response = await fetch(`https://api.spotify.com/v1/albums/${playlistURI}?market=us`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${props.tokenInfo.token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    ).catch(handleError);
-    if (response.ok) {
-      const json = await response.json();
-      // console.log(json);
-      setAlbum(json);
-    }
-  }
-
-    if (props.type === "playlist") {
-      loadPlaylist(props.playlistID);
-    }
-    else if (props.type === "album") {
-      loadAlbum(props.playlistID);
-    }
-
+    loadPlaylistOrAlbum(props.playlistID);
   }, []);
 
   function closePlaylist() {
