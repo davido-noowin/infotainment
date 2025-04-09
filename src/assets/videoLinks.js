@@ -9,9 +9,16 @@ export default [
     { title: "Beach Sunrise", videoID: "5p_SuO96Jd4", ID: "7" },
     { title: "Minecraft Forest Stream", videoID: "m25ppbdW5Kc", ID: "8" },
     { title: "Seoul Strides", videoID: "mpTYO-8Dw5k", ID: "9"},
-    { title: "Snowfall In Kyoto", videoID: "cwnKBK1r9rk", ID: "10"},
+    { title: "Traveling Thru Tokyo", videoID: "u_5wLvlRhc0", ID: "10"},
     { title: "Beach Sunset", videoID: "CBLobHhY0Gk", ID: "11"},
     { title: "Norwegian Winter" , videoID: "-SMKVJO_wGo", ID: "12"},
     { title: "Bluebell Woods", videoID: "IsPBplWLImI", ID: "13"},
+    { title: "Pokemon Sinnoh (w/ Music)", videoID: "1cF3N_2lKK8", ID: "14"},
+    { title: "Foggy Campfire", videoID: "8KrLtLr-Gy8", ID: "15"},
+    { title: "Coral Aquarium", videoID: "cExYJVF3f6I", ID: "16"},
+    { title: "Cyberpunk Apartment", videoID: "yEiOq7IG_OA", ID: "17"},
+    { title: "By the Lakefront", videoID: "Se5NjX-cM5I", ID: "18"},
+    { title: "Autumn River Forest", videoID: "czCHvDY23fc", ID: "19"},
+    { title: "Coffee Shop", videoID: "EDRnwlPvbNg", ID: "20"}
 ];
     
