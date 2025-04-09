@@ -18,12 +18,17 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 const queryString =
-  "?market=us&fields=name%2Cowner%28display_name%29%2Cimages%2Ctracks.items%28track%28name%2C+artists%2C+album%28images%2C+name%29%2C+duration_ms%2Curi%29";
+  "?market=us&fields=images%2C+name%2Cowner%28display_name%29%2Ctracks%28next%2C+offset%2Climit%2Cprevious%2C+total%2Citems%28track%28album%28images%2Cname%29%2Cartists%28name%29%2C+duration_ms%2Cname%2Curi%2Cis_playable%29%29%29";
 const track = {
   images: [{ url: null }],
   name: "",
   owner: { display_name: "" },
   tracks: {
+    limit: 100,
+    next: null,
+    offset: 0,
+    previous: null,
+    total: 0,
     items: [
       {
         track: {
@@ -33,6 +38,7 @@ const track = {
           },
           artists: [{ name: "" }],
           duration_ms: 0,
+          is_playable: true,
           name: "",
           uri: "",
         },
@@ -51,24 +57,19 @@ export default function SpotifyUIPlaylist(props) {
       var fetchString;
       if (props.type === "playlist") {
         fetchString = `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`;
-      }
-      else if (props.type === "album") {
-        fetchString = `https://api.spotify.com/v1/albums/${playlistURI}?market=us`
-      }
-      else {
+      } else if (props.type === "album") {
+        fetchString = `https://api.spotify.com/v1/albums/${playlistURI}?market=us`;
+      } else {
         return;
       }
 
-      const response = await fetch(
-        fetchString,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${props.tokenInfo.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      ).catch(handleError);
+      const response = await fetch(fetchString, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${props.tokenInfo.token}`,
+          "Content-Type": "application/json",
+        },
+      }).catch(handleError);
       if (response.ok) {
         const json = await response.json();
         // console.log(json);
@@ -126,13 +127,18 @@ export default function SpotifyUIPlaylist(props) {
         }`}
       >
         <button
+          className={!song.track.is_playable ? "disabled" : ""}
           onClick={() => {
             playSong(props.playlistID, index);
           }}
         >
           <div className="playlist-song-obj-group">
             <span className="playlist-song-number">
-              {playerState.uri === song.track.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
+              {playerState.uri === song.track.uri ? (
+                <img className="active-song-speaker" src={volume} />
+              ) : (
+                index + 1
+              )}
             </span>
             <img
               className="playlist-song-img"
@@ -191,7 +197,11 @@ export default function SpotifyUIPlaylist(props) {
           >
             <div className="playlist-song-obj-group">
               <span className="playlist-song-number">
-                {playerState.uri === song.uri ? <img className="active-song-speaker" src={volume} /> : index + 1}
+                {playerState.uri === song.uri ? (
+                  <img className="active-song-speaker" src={volume} />
+                ) : (
+                  index + 1
+                )}
               </span>
               <img
                 className="playlist-song-img"
@@ -248,7 +258,11 @@ export default function SpotifyUIPlaylist(props) {
           />
           <div className="playlist-title-and-creator">
             <h1>{album !== null ? album.name : playlist.name}</h1>
-            <p>{album !== null ? album.artists[0].name : playlist.owner.display_name}</p>
+            <p>
+              {album !== null
+                ? album.artists[0].name
+                : playlist.owner.display_name}
+            </p>
           </div>
         </div>
         <div className="playlist-btn-group">
@@ -277,7 +291,9 @@ export default function SpotifyUIPlaylist(props) {
           <p className="playlist-label time-label">Time</p>
         </div>
         <div className="playlist-label-linebreak"></div>
-        <ul className="playlist-songs">{album !== null ? albumItems : playlistItems}</ul>
+        <ul className="playlist-songs">
+          {album !== null ? albumItems : playlistItems}
+        </ul>
       </div>
     </div>
   );
