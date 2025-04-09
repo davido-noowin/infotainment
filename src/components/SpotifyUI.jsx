@@ -32,8 +32,11 @@ function fetchPlaylists(token) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const json = await response.json();
+      // console.log(json.items)
       const filteredPlaylists = new Set();
-      json.items.forEach((track) => {
+      json.items
+      .filter((track) => track.context)
+      .forEach((track) => {
         if (track.context.type === "playlist") {
           filteredPlaylists.add(track.context.uri.split(":")[2]);
         }
@@ -99,7 +102,7 @@ export default function SpotifyUI(props) {
           fetchPlaylistDetails(token, track).then((data) => results.push(data));
         });
       });
-      console.log(results);
+      // console.log(results);
       setPlaylistsToDisplay(results);
     }
 
