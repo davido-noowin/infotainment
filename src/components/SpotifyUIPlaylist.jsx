@@ -153,7 +153,7 @@ export default function SpotifyUIPlaylist(props) {
     }).catch(handleError);
     if (response.ok) {
       const json = await response.json();
-      console.log(json);
+      // console.log(json);
       setNextPage(json.next);
       setPreviousPage(json.previous);
       selectTracks(json.items);
