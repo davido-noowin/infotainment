@@ -37,28 +37,28 @@ A website built using React meant to display your information and allow you to l
 ## Images 🖼️
 ### Home Screen:
 
-<img src="./images/Capture1.png" />
+<img src="./images/Capture1.png"/>
 
 ### Spotify Search:
 
-<img src="./images/Capture2.png" />
+<img src="./images/Capture2.png"/>
 
 ### User's Spotify Playlists:
 
-<img src="./images/Capture3.png" />
+<img src="./images/Capture3.png"/>
 
 
 ### Changing Videos & Weather:
 
-<img src="./images/Capture4.png" />
+<img src="./images/Capture4.png"/>
 
 ### Browsing Spotify Albums:
 
-<img src="./images/Capture5.png" />
+<img src="./images/Capture5.png"/>
 
 ### Listening to Longer Playlists:
 
-<img src="./images/Capture6.png" />
+<img src="./images/Capture6.png"/>
 
 ## Built With 🔨
 * React
