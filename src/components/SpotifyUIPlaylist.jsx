@@ -18,7 +18,7 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 const queryString =
-  "?market=us&fields=images%2C+name%2Cowner%28display_name%29%2Ctracks%28next%2C+offset%2Climit%2Cprevious%2C+total%2Citems%28track%28album%28images%2Cname%29%2Cartists%28name%29%2C+duration_ms%2Cname%2Curi%2Cis_playable%29%29%29";
+  "?market=us&fields=images%2C+name%2Cowner%28display_name%29%2Ctracks%28next%2C+offset%2Climit%2Cprevious%2C+total%2Citems%28is_local%2Ctrack%28album%28images%2Cname%29%2Cartists%28name%29%2C+duration_ms%2Cname%2Curi%2Cis_playable%29%29%29";
 const track = {
   images: [{ url: null }],
   name: "",
@@ -31,6 +31,7 @@ const track = {
     total: 0,
     items: [
       {
+        is_local: false,
         track: {
           album: {
             images: [{ url: null }],
@@ -188,7 +189,9 @@ export default function SpotifyUIPlaylist(props) {
 
   let playlistItems;
   if (trackItems) {
-    playlistItems = trackItems.map((song, index) => {
+    playlistItems = trackItems
+      .filter((elem) => !elem.is_local)
+      .map((song, index) => {
       return (
         <li
           key={index + offset}
