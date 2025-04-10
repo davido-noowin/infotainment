@@ -51,6 +51,12 @@ export default function SpotifyUIPlaylist(props) {
   const [playlist, setPlaylistItems] = useState(track);
   const [album, setAlbum] = useState(null);
   const [trackItems, setTrackItems] = useState([]);
+  const [totalTracks, setTotalTracks] = useState(0);
+  const [pageLimit, setPageLimit] = useState(100);
+  const [offset, setOffset] = useState(0);
+  const [nextPage, setNextPage] = useState(null);
+  const [previousPage, setPreviousPage] = useState(null);
+  const [page, setPage] = useState(1);
   const playerState = useContext(PlayerStateContext);
 
   useEffect(() => {
@@ -58,8 +64,10 @@ export default function SpotifyUIPlaylist(props) {
       var fetchString;
       if (props.type === "playlist") {
         fetchString = `https://api.spotify.com/v1/playlists/${playlistURI}${queryString}`;
+        setPageLimit(100);
       } else if (props.type === "album") {
         fetchString = `https://api.spotify.com/v1/albums/${playlistURI}?market=us`;
+        setPageLimit(50);
       } else {
         return;
       }
@@ -75,6 +83,9 @@ export default function SpotifyUIPlaylist(props) {
         const json = await response.json();
         // console.log(json);
         props.type === "playlist" ? setPlaylistItems(json) : setAlbum(json);
+        setTotalTracks(json.tracks.total);
+        setNextPage(json.tracks.next);
+        setPreviousPage(json.tracks.prev);
         selectTracks(json.tracks.items);
       }
     }
@@ -94,10 +105,9 @@ export default function SpotifyUIPlaylist(props) {
     var playlistItems;
     if (props.type === "album") {
       playlistItems = trackItemsList.map((song) => {
-        return { track: song}
-      })
-    }
-    else {
+        return { track: song };
+      });
+    } else {
       playlistItems = trackItemsList;
     }
     setTrackItems(playlistItems);
@@ -132,13 +142,46 @@ export default function SpotifyUIPlaylist(props) {
       }
     ).catch(handleError);
   }
-  
+
+  async function fetchTrackContent(fetchString) {
+    const response = await fetch(fetchString, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${props.tokenInfo.token}`,
+        "Content-Type": "application/json",
+      },
+    }).catch(handleError);
+    if (response.ok) {
+      const json = await response.json();
+      console.log(json);
+      setNextPage(json.next);
+      setPreviousPage(json.previous);
+      selectTracks(json.items);
+    }
+  }
+
+  async function getNextPage() {
+    setOffset(prev => prev + pageLimit);
+    setPage(prev => prev + 1);
+    const playlistOrAlbum = props.type === "playlist" ? `https://api.spotify.com/v1/playlists/${props.playlistID}` : `https://api.spotify.com/v1/albums/${album.id}`;
+    const urlWithQuery = playlistOrAlbum + `/tracks?market=us&limit=${pageLimit}&offset=${offset + pageLimit}`;
+    fetchTrackContent(urlWithQuery);
+  }
+
+  async function getPreviousPage() {
+    setOffset(prev => prev - pageLimit);
+    setPage(prev => prev - 1);
+    const playlistOrAlbum = props.type === "playlist" ? `https://api.spotify.com/v1/playlists/${props.playlistID}` : `https://api.spotify.com/v1/albums/${album.id}`;
+    const urlWithQuery = playlistOrAlbum + `/tracks?market=us&limit=${pageLimit}&offset=${offset - pageLimit}`;
+    fetchTrackContent(urlWithQuery);
+  }
+
   let playlistItems;
   if (trackItems) {
     playlistItems = trackItems.map((song, index) => {
       return (
         <li
-          key={index}
+          key={index + offset}
           className={`playlist-song-obj ${
             playerState.uri === song.track.uri ? "active-song" : ""
           }`}
@@ -146,7 +189,7 @@ export default function SpotifyUIPlaylist(props) {
           <button
             className={!song.track.is_playable ? "disabled" : ""}
             onClick={() => {
-              playSong(props.playlistID, index);
+              playSong(props.playlistID, index + offset);
             }}
           >
             <div className="playlist-song-obj-group">
@@ -154,39 +197,53 @@ export default function SpotifyUIPlaylist(props) {
                 {playerState.uri === song.track.uri ? (
                   <img className="active-song-speaker" src={volume} />
                 ) : (
-                  index + 1
+                  index + 1 + offset
                 )}
               </span>
               <img
                 className="playlist-song-img"
                 draggable="false"
-                src={props.type === "playlist" ? song.track.album.images[0].url : album.images[0].url}
-                alt={props.type === "playlist" ? song.track.album.name : album.name}
+                src={
+                  props.type === "playlist"
+                    ? song.track.album.images[0].url
+                    : album.images[0].url
+                }
+                alt={
+                  props.type === "playlist" ? song.track.album.name : album.name
+                }
               />
               <span
                 className={`playlist-song-details track-name ${
-                  playerState.uri === song.track.uri ? "active-song-details" : ""
+                  playerState.uri === song.track.uri
+                    ? "active-song-details"
+                    : ""
                 }`}
               >
                 {song.track.name}
               </span>
               <span
                 className={`playlist-song-details artist-name ${
-                  playerState.uri === song.track.uri ? "active-song-details" : ""
+                  playerState.uri === song.track.uri
+                    ? "active-song-details"
+                    : ""
                 }`}
               >
                 {song.track.artists[0].name}
               </span>
               <span
                 className={`playlist-song-details album-name ${
-                  playerState.uri === song.track.uri ? "active-song-details" : ""
+                  playerState.uri === song.track.uri
+                    ? "active-song-details"
+                    : ""
                 }`}
               >
                 {props.type === "playlist" ? song.track.album.name : album.name}
               </span>
               <span
                 className={`playlist-song-details time-name ${
-                  playerState.uri === song.track.uri ? "active-song-details" : ""
+                  playerState.uri === song.track.uri
+                    ? "active-song-details"
+                    : ""
                 }`}
               >
                 {millisToMinutesAndSeconds(song.track.duration_ms)}
@@ -227,16 +284,17 @@ export default function SpotifyUIPlaylist(props) {
             <button className="song-control-btn" onClick={toggleShuffle}>
               <img src={playerState.shuffle ? shuffle : disableShuffle} />
             </button>
+            <span className="track-count">{totalTracks} Songs</span>
           </div>
-          <div className="pagination-btn-group">
-            <button className="pagination-btn">
+          {totalTracks > pageLimit && <div className="pagination-btn-group">
+            <button className={`pagination-btn ${previousPage ? "" : "hide-pagination-btn"}`} onClick={getPreviousPage}>
               <img src={leftArrow} />
             </button>
-            <p className="pagination-page">1</p>
-            <button className="pagination-btn">
+            <p className="pagination-page">{page}</p>
+            <button className={`pagination-btn ${nextPage ? "" : "hide-pagination-btn"}`} onClick={getNextPage}>
               <img src={rightArrow} />
             </button>
-          </div>
+          </div>}
         </div>
         <div className="playlist-label-group">
           <p className="playlist-label song-label">Song</p>
@@ -245,9 +303,18 @@ export default function SpotifyUIPlaylist(props) {
           <p className="playlist-label time-label">Time</p>
         </div>
         <div className="playlist-label-linebreak"></div>
-        <ul className="playlist-songs">
-          {playlistItems}
-        </ul>
+        <ul className="playlist-songs">{playlistItems}</ul>
+        {totalTracks > pageLimit && <div className="pagination-bottom-screen">
+            <div className="pagination-btn-group">
+              <button className={`pagination-btn ${previousPage ? "" : "hide-pagination-btn"}`} onClick={getPreviousPage}>
+                <img src={leftArrow} />
+              </button>
+              <p className="pagination-page">{page}</p>
+              <button className={`pagination-btn ${nextPage ? "" : "hide-pagination-btn"}`} onClick={getNextPage}>
+                <img src={rightArrow} />
+              </button>
+            </div>
+          </div>}
       </div>
     </div>
   );

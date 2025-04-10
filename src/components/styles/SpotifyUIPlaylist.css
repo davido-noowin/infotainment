@@ -72,6 +72,7 @@
     align-items: center;
     padding-left: 3%;
     padding-right: 3%;
+    margin-top: 0.5%;
 }
 
 .song-control-btn-group {
@@ -93,12 +94,34 @@
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.pagination-btn {
+    width: 32px;
+    height: 32px;
+}
+
+.hide-pagination-btn {
     visibility: hidden;
 }
 
 .pagination-page {
     color: #DDDDDD;
     font-size: 28px;
+    margin: 0;
+}
+
+.pagination-bottom-screen {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.track-count {
+    margin: 0;
+    align-self: center;
+    color: #BBBBBB;
+    font-size: 20px;
 }
 
 .playlist-label-group {
