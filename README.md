@@ -58,7 +58,7 @@ A website built using React meant to display your information and allow you to l
 
 ### Listening to Longer Playlists:
 
-<img src="./images/Cap6.PNG"/>
+<img src="./images/Cap6.png"/>
 
 ## Built With 🔨
 * React
