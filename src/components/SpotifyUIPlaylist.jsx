@@ -161,18 +161,28 @@ export default function SpotifyUIPlaylist(props) {
   }
 
   async function getNextPage() {
-    setOffset(prev => prev + pageLimit);
-    setPage(prev => prev + 1);
-    const playlistOrAlbum = props.type === "playlist" ? `https://api.spotify.com/v1/playlists/${props.playlistID}` : `https://api.spotify.com/v1/albums/${album.id}`;
-    const urlWithQuery = playlistOrAlbum + `/tracks?market=us&limit=${pageLimit}&offset=${offset + pageLimit}`;
+    setOffset((prev) => prev + pageLimit);
+    setPage((prev) => prev + 1);
+    const playlistOrAlbum =
+      props.type === "playlist"
+        ? `https://api.spotify.com/v1/playlists/${props.playlistID}`
+        : `https://api.spotify.com/v1/albums/${album.id}`;
+    const urlWithQuery =
+      playlistOrAlbum +
+      `/tracks?market=us&limit=${pageLimit}&offset=${offset + pageLimit}`;
     fetchTrackContent(urlWithQuery);
   }
 
   async function getPreviousPage() {
-    setOffset(prev => prev - pageLimit);
-    setPage(prev => prev - 1);
-    const playlistOrAlbum = props.type === "playlist" ? `https://api.spotify.com/v1/playlists/${props.playlistID}` : `https://api.spotify.com/v1/albums/${album.id}`;
-    const urlWithQuery = playlistOrAlbum + `/tracks?market=us&limit=${pageLimit}&offset=${offset - pageLimit}`;
+    setOffset((prev) => prev - pageLimit);
+    setPage((prev) => prev - 1);
+    const playlistOrAlbum =
+      props.type === "playlist"
+        ? `https://api.spotify.com/v1/playlists/${props.playlistID}`
+        : `https://api.spotify.com/v1/albums/${album.id}`;
+    const urlWithQuery =
+      playlistOrAlbum +
+      `/tracks?market=us&limit=${pageLimit}&offset=${offset - pageLimit}`;
     fetchTrackContent(urlWithQuery);
   }
 
@@ -286,15 +296,27 @@ export default function SpotifyUIPlaylist(props) {
             </button>
             <span className="track-count">{totalTracks} Songs</span>
           </div>
-          {totalTracks > pageLimit && <div className="pagination-btn-group">
-            <button className={`pagination-btn ${previousPage ? "" : "hide-pagination-btn"}`} onClick={getPreviousPage}>
-              <img src={leftArrow} />
-            </button>
-            <p className="pagination-page">{page}</p>
-            <button className={`pagination-btn ${nextPage ? "" : "hide-pagination-btn"}`} onClick={getNextPage}>
-              <img src={rightArrow} />
-            </button>
-          </div>}
+          {totalTracks > pageLimit && (
+            <div className="pagination-btn-group">
+              <button
+                className={`pagination-btn ${
+                  previousPage ? "" : "hide-pagination-btn"
+                }`}
+                onClick={getPreviousPage}
+              >
+                <img src={leftArrow} />
+              </button>
+              <p className="pagination-page">{page}</p>
+              <button
+                className={`pagination-btn ${
+                  nextPage ? "" : "hide-pagination-btn"
+                }`}
+                onClick={getNextPage}
+              >
+                <img src={rightArrow} />
+              </button>
+            </div>
+          )}
         </div>
         <div className="playlist-label-group">
           <p className="playlist-label song-label">Song</p>
@@ -304,17 +326,29 @@ export default function SpotifyUIPlaylist(props) {
         </div>
         <div className="playlist-label-linebreak"></div>
         <ul className="playlist-songs">{playlistItems}</ul>
-        {totalTracks > pageLimit && <div className="pagination-bottom-screen">
+        {totalTracks > pageLimit && (
+          <div className="pagination-bottom-screen">
             <div className="pagination-btn-group">
-              <button className={`pagination-btn ${previousPage ? "" : "hide-pagination-btn"}`} onClick={getPreviousPage}>
+              <button
+                className={`pagination-btn ${
+                  previousPage ? "" : "hide-pagination-btn"
+                }`}
+                onClick={getPreviousPage}
+              >
                 <img src={leftArrow} />
               </button>
               <p className="pagination-page">{page}</p>
-              <button className={`pagination-btn ${nextPage ? "" : "hide-pagination-btn"}`} onClick={getNextPage}>
+              <button
+                className={`pagination-btn ${
+                  nextPage ? "" : "hide-pagination-btn"
+                }`}
+                onClick={getNextPage}
+              >
                 <img src={rightArrow} />
               </button>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
     </div>
   );
