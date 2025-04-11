@@ -1,7 +1,7 @@
 import "./styles/SpotifyUIMyPlaylists.css"
 import SpotifyUIPlaylist from "./SpotifyUIPlaylist"
 import handleError from "../handleError";
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 const userPlaylists = {
     items: [{
@@ -16,7 +16,7 @@ export default function SpotifyUIMyPlaylists(props) {
     const [playlistID, setPlaylistID] = useState("");
     const [playlists, setPlaylists] = useState(userPlaylists);
 
-    useEffect(()=>{
+    const getAllUsersPlaylists = useCallback(() => {
         async function getUserPlaylists() {
             const response = await fetch(`https://api.spotify.com/v1/me/playlists?limit=50`, {
                 method: "GET",
@@ -32,7 +32,11 @@ export default function SpotifyUIMyPlaylists(props) {
             }
         }
         getUserPlaylists();
-    }, [])
+    }, [props.tokenInfo.token]);
+
+    useEffect(() => {
+        getAllUsersPlaylists()
+    }, [getAllUsersPlaylists]);
 
     function selectPlaylist(id) {
         setPlaylistScreen((prev) => !prev);
