@@ -35,6 +35,8 @@ export default function UIBar({
     script.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
+    const currentMuteButton = muteButton.current;
+    const currentVolumeSlider = volumeSlider.current;
 
     window.onYouTubeIframeAPIReady = function () {
       globalThis.player = new window.YT.Player("player", {
@@ -62,23 +64,23 @@ export default function UIBar({
       }
     }
 
-    if (muteButton && muteButton.current) {
-      muteButton.current.addEventListener("click", toggleMute);
+    if (muteButton && currentMuteButton) {
+      currentMuteButton.addEventListener("click", toggleMute);
     }
 
-    if (volumeSlider && volumeSlider.current) {
-      volumeSlider.current.addEventListener("change", setVolume);
+    if (volumeSlider && currentVolumeSlider) {
+      currentVolumeSlider.addEventListener("change", setVolume);
     }
 
     return () => {
       if (script.current) {
         script.current.remove();
       }
-      if (muteButton.current) {
-        muteButton.current.removeEventListener("click", toggleMute);
+      if (currentMuteButton) {
+        currentMuteButton.removeEventListener("click", toggleMute);
       }
-      if (volumeSlider.current) {
-        volumeSlider.current.removeEventListener("onChange", setVolume);
+      if (currentVolumeSlider) {
+        currentVolumeSlider.removeEventListener("onChange", setVolume);
       }
     };
   }, [sideBarOpen]);
