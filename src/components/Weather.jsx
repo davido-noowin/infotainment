@@ -32,7 +32,7 @@ export default function Weather(props) {
             .then((data) => {
                 setWeatherResponse(data[0])
             });
-        console.log("getting weather info")
+        // console.log("getting weather info")
         
     }, [props.geoPosition])
 
