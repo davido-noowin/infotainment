@@ -1,7 +1,7 @@
 import SpotifyUIPlaylist from "./SpotifyUIPlaylist";
 import "./styles/SpotifyUISearch.css";
 import handleError from "../handleError";
-import { PlayerStateContext } from "./MusicBar";
+import { PlayerStateContext } from "./PlayerStateContext";
 import { useState, useContext } from "react";
 
 function millisToMinutesAndSeconds(millis) {

@@ -4,9 +4,8 @@ import SpotifyWebPlayback from "./SpotifyWebPlayback";
 import hideMusicPlayer from "../assets/uiButtons/HideMusicPlayer.png";
 import SpotifyUI from "./SpotifyUI";
 import handleError from "../handleError";
-import { useState, useEffect, createContext } from "react";
-
-export const PlayerStateContext = createContext();
+import { PlayerStateContext } from "./PlayerStateContext";
+import { useState, useEffect } from "react";
 
 export default function MusicBar(props) {
   const [tokenObject, setToken] = useState({

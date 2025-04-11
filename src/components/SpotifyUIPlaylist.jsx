@@ -8,7 +8,7 @@ import rightArrow from "../assets/uiButtons/ArrowRight.png";
 import volume from "../assets/uiButtons/Volume.png";
 import "./styles/SpotifyUIPlaylist.css";
 import handleError from "../handleError";
-import { PlayerStateContext } from "./MusicBar";
+import { PlayerStateContext } from "./PlayerStateContext";
 import { useState, useEffect, useContext } from "react";
 
 function millisToMinutesAndSeconds(millis) {
