@@ -5,7 +5,7 @@ import SpotifyUIHome from "./SpotifyUIHome";
 import SpotifyUIMyPlaylists from "./SpotifyUIMyPlaylists";
 import SpotifyUISearch from "./SpotifyUISearch";
 import handleError from "../handleError";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const playlistInfo = [
   {
@@ -79,7 +79,7 @@ export default function SpotifyUI(props) {
   const [displayName, setDisplayName] = useState("");
   const [searchResults, setSearchResults] = useState(undefined);
 
-  useEffect(() => {
+  const loadSpotify = useCallback(() => {
     async function getUser() {
       const response = await fetch("https://api.spotify.com/v1/me", {
         method: "GET",
@@ -108,7 +108,11 @@ export default function SpotifyUI(props) {
 
     aggregrateTracks(props.tokenInfo.token);
     getUser();
-  }, []);
+  }, [props.tokenInfo.token]);
+
+  useEffect(() => {
+    loadSpotify();
+  }, [loadSpotify])
 
   function navigateScreens(screen) {
     setActiveScreen(screen);
