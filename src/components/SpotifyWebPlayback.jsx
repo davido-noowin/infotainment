@@ -68,6 +68,7 @@ export default function SpotifyWebPlayback(props) {
 
       player.addListener("ready", ({ device_id }) => {
         console.log("Ready with Device ID", device_id);
+        player.activateElement();
         switchPlaybackDevice(device_id);
       });
 
