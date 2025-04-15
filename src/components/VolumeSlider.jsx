@@ -1,6 +1,6 @@
 import "./styles/VolumeSlider.css";
-import volume from "../assets/uiButtons/Volume.png"
-import noVolume from "../assets/uiButtons/NoVolume.png"
+import volume from "../assets/uiButtons/Volume.png";
+import noVolume from "../assets/uiButtons/NoVolume.png";
 
 export default function VolumeSlider(props) {
   return (

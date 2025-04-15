@@ -1,4 +1,4 @@
-import "./styles/SpotifyLogin.css"
+import "./styles/SpotifyLogin.css";
 
 export default function SpotifyLogin() {
   return (
