@@ -121,7 +121,7 @@ export default function SpotifyUI(props) {
   async function searchSong(formData) {
     navigateScreens("searching");
     const query = formData.get("query");
-    console.log("you searched for", query);
+    // console.log("you searched for", query);
     const response = await fetch(
       `https://api.spotify.com/v1/search?q=${query}&type=track%2Calbum%2Cplaylist&market=us&limit=8`,
       {

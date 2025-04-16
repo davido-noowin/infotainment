@@ -39,7 +39,7 @@ export default function SpotifyWebPlayback(props) {
           
           // check if token has expired
           if (new Date().getTime() > props.tokenInfo.expiresIn) {
-            console.log("token has expired my g, refreshing rn");
+            // console.log("token has expired my g, refreshing rn");
             const response = await fetch("/auth/refresh-token").catch(handleError);
             if (response.ok) {
               const json = await response.json();
@@ -52,13 +52,13 @@ export default function SpotifyWebPlayback(props) {
                 refreshToken: json.refresh_token,
                 expiresIn: new Date().getTime() + json.expires_in * 1000,
               }));
-              console.log("new token:", json.access_token)
+              // console.log("new token:", json.access_token)
               OAuthToken = json.access_token
             } else {
               return Promise.reject(response);
             }
           }
-          console.log("IN CALLBACK", OAuthToken)
+          // console.log("IN CALLBACK", OAuthToken)
           cb(OAuthToken);
         },
         volume: 0.2,
@@ -67,7 +67,7 @@ export default function SpotifyWebPlayback(props) {
       props.updatePlayer(player);
 
       player.addListener("ready", ({ device_id }) => {
-        console.log("Ready with Device ID", device_id);
+        // console.log("Ready with Device ID", device_id);
         player.activateElement();
         switchPlaybackDevice(device_id);
       });
@@ -99,7 +99,7 @@ export default function SpotifyWebPlayback(props) {
         },
         body: JSON.stringify({ device_ids: [device_id] }),
       }).catch(handleError);
-      console.log(response);
+      // console.log(response);
     }
 
     return () => {
