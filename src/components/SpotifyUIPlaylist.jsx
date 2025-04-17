@@ -9,7 +9,7 @@ import volume from "../assets/uiButtons/Volume.png";
 import "./styles/SpotifyUIPlaylist.css";
 import handleError from "../handleError";
 import { PlayerStateContext } from "./PlayerStateContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
@@ -60,7 +60,19 @@ export default function SpotifyUIPlaylist(props) {
   const [page, setPage] = useState(1);
   const playerState = useContext(PlayerStateContext);
 
-  useEffect(() => {
+  const selectTracks = useCallback((trackItemsList) => {
+    var playlistItems;
+    if (props.type === "album") {
+      playlistItems = trackItemsList.map((song) => {
+        return { track: song };
+      });
+    } else {
+      playlistItems = trackItemsList;
+    }
+    setTrackItems(playlistItems);
+  }, [props.type])
+
+  const loadPlaylistPage = useCallback(() => {
     async function loadPlaylistOrAlbum(playlistURI) {
       var fetchString;
       if (props.type === "playlist") {
@@ -92,7 +104,11 @@ export default function SpotifyUIPlaylist(props) {
     }
 
     loadPlaylistOrAlbum(props.playlistID);
-  }, []);
+  }, [props.playlistID, props.tokenInfo.token, props.type, selectTracks]);
+
+  useEffect(()=> {
+    loadPlaylistPage()
+  }, [loadPlaylistPage]);
 
   function closePlaylist() {
     props.closePlaylist((prev) => !prev);
@@ -100,18 +116,6 @@ export default function SpotifyUIPlaylist(props) {
 
   function togglePlay() {
     props.player.togglePlay();
-  }
-
-  function selectTracks(trackItemsList) {
-    var playlistItems;
-    if (props.type === "album") {
-      playlistItems = trackItemsList.map((song) => {
-        return { track: song };
-      });
-    } else {
-      playlistItems = trackItemsList;
-    }
-    setTrackItems(playlistItems);
   }
 
   async function playSong(URI, index) {
