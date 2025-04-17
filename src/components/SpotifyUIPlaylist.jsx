@@ -60,17 +60,20 @@ export default function SpotifyUIPlaylist(props) {
   const [page, setPage] = useState(1);
   const playerState = useContext(PlayerStateContext);
 
-  const selectTracks = useCallback((trackItemsList) => {
-    var playlistItems;
-    if (props.type === "album") {
-      playlistItems = trackItemsList.map((song) => {
-        return { track: song };
-      });
-    } else {
-      playlistItems = trackItemsList;
-    }
-    setTrackItems(playlistItems);
-  }, [props.type])
+  const selectTracks = useCallback(
+    (trackItemsList) => {
+      var playlistItems;
+      if (props.type === "album") {
+        playlistItems = trackItemsList.map((song) => {
+          return { track: song };
+        });
+      } else {
+        playlistItems = trackItemsList;
+      }
+      setTrackItems(playlistItems);
+    },
+    [props.type]
+  );
 
   const loadPlaylistPage = useCallback(() => {
     async function loadPlaylistOrAlbum(playlistURI) {
@@ -106,8 +109,8 @@ export default function SpotifyUIPlaylist(props) {
     loadPlaylistOrAlbum(props.playlistID);
   }, [props.playlistID, props.tokenInfo.token, props.type, selectTracks]);
 
-  useEffect(()=> {
-    loadPlaylistPage()
+  useEffect(() => {
+    loadPlaylistPage();
   }, [loadPlaylistPage]);
 
   function closePlaylist() {
@@ -196,80 +199,84 @@ export default function SpotifyUIPlaylist(props) {
     playlistItems = trackItems
       .filter((elem) => !elem.is_local)
       .map((song, index) => {
-      return (
-        <li
-          key={index + offset}
-          className={`playlist-song-obj ${
-            playerState.uri === song.track.uri ? "active-song" : ""
-          }`}
-        >
-          <button
-            className={!song.track.is_playable ? "disabled" : ""}
-            onClick={() => {
-              playSong(props.playlistID, index + offset);
-            }}
+        return (
+          <li
+            key={index + offset}
+            className={`playlist-song-obj ${
+              playerState.uri === song.track.uri ? "active-song" : ""
+            }`}
           >
-            <div className="playlist-song-obj-group">
-              <span className="playlist-song-number">
-                {playerState.uri === song.track.uri ? (
-                  <img className="active-song-speaker" src={volume} />
-                ) : (
-                  index + 1 + offset
-                )}
-              </span>
-              <img
-                className="playlist-song-img"
-                draggable="false"
-                src={
-                  props.type === "playlist"
-                    ? song.track.album.images[0].url
-                    : album.images[0].url
-                }
-                alt={
-                  props.type === "playlist" ? song.track.album.name : album.name
-                }
-              />
-              <span
-                className={`playlist-song-details track-name ${
-                  playerState.uri === song.track.uri
-                    ? "active-song-details"
-                    : ""
-                }`}
-              >
-                {song.track.name}
-              </span>
-              <span
-                className={`playlist-song-details artist-name ${
-                  playerState.uri === song.track.uri
-                    ? "active-song-details"
-                    : ""
-                }`}
-              >
-                {song.track.artists[0].name}
-              </span>
-              <span
-                className={`playlist-song-details album-name ${
-                  playerState.uri === song.track.uri
-                    ? "active-song-details"
-                    : ""
-                }`}
-              >
-                {props.type === "playlist" ? song.track.album.name : album.name}
-              </span>
-              <span
-                className={`playlist-song-details time-name ${
-                  playerState.uri === song.track.uri
-                    ? "active-song-details"
-                    : ""
-                }`}
-              >
-                {millisToMinutesAndSeconds(song.track.duration_ms)}
-              </span>
-            </div>
-          </button>
-        </li>
-      );
-    });
+            <button
+              className={!song.track.is_playable ? "disabled" : ""}
+              onClick={() => {
+                playSong(props.playlistID, index + offset);
+              }}
+            >
+              <div className="playlist-song-obj-group">
+                <span className="playlist-song-number">
+                  {playerState.uri === song.track.uri ? (
+                    <img className="active-song-speaker" src={volume} />
+                  ) : (
+                    index + 1 + offset
+                  )}
+                </span>
+                <img
+                  className="playlist-song-img"
+                  draggable="false"
+                  src={
+                    props.type === "playlist"
+                      ? song.track.album.images[0].url
+                      : album.images[0].url
+                  }
+                  alt={
+                    props.type === "playlist"
+                      ? song.track.album.name
+                      : album.name
+                  }
+                />
+                <span
+                  className={`playlist-song-details track-name ${
+                    playerState.uri === song.track.uri
+                      ? "active-song-details"
+                      : ""
+                  }`}
+                >
+                  {song.track.name}
+                </span>
+                <span
+                  className={`playlist-song-details artist-name ${
+                    playerState.uri === song.track.uri
+                      ? "active-song-details"
+                      : ""
+                  }`}
+                >
+                  {song.track.artists[0].name}
+                </span>
+                <span
+                  className={`playlist-song-details album-name ${
+                    playerState.uri === song.track.uri
+                      ? "active-song-details"
+                      : ""
+                  }`}
+                >
+                  {props.type === "playlist"
+                    ? song.track.album.name
+                    : album.name}
+                </span>
+                <span
+                  className={`playlist-song-details time-name ${
+                    playerState.uri === song.track.uri
+                      ? "active-song-details"
+                      : ""
+                  }`}
+                >
+                  {millisToMinutesAndSeconds(song.track.duration_ms)}
+                </span>
+              </div>
+            </button>
+          </li>
+        );
+      });
   }
 
   return (
