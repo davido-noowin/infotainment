@@ -91,7 +91,7 @@ export default function SpotifyWebPlayback(props) {
     };
     async function switchPlaybackDevice(device_id) {
       // console.log("id", device_id, "token", props.token)
-      const response = await fetch("https://api.spotify.com/v1/me/player", {
+      await fetch("https://api.spotify.com/v1/me/player", {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${props.tokenInfo.token}`,
@@ -99,7 +99,6 @@ export default function SpotifyWebPlayback(props) {
         },
         body: JSON.stringify({ device_ids: [device_id] }),
       }).catch(handleError);
-      // console.log(response);
     }
 
     return () => {
