@@ -15,62 +15,59 @@ const playlistInfo = [
   },
 ];
 
-function fetchPlaylists(token) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(
-        "https://api.spotify.com/v1/me/player/recently-played?limit=50",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+async function fetchPlaylists(token) {
+  try {
+    const response = await fetch(
+      "https://api.spotify.com/v1/me/player/recently-played?limit=50",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }
-      const json = await response.json();
-      // console.log(json.items)
-      const filteredPlaylists = new Set();
-      json.items
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const json = await response.json();
+    // console.log(json.items)
+    const filteredPlaylists = new Set();
+    json.items
       .filter((track) => track.context)
       .forEach((track) => {
         if (track.context.type === "playlist") {
           filteredPlaylists.add(track.context.uri.split(":")[2]);
         }
       });
-      resolve(Array.from(filteredPlaylists));
-    } catch (error) {
-      reject(error);
-    }
-  });
+    return Array.from(filteredPlaylists);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
-function fetchPlaylistDetails(token, id) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${id}?fields=name%2Cimages%28url%29%2C+id`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+async function fetchPlaylistDetails(token, id) {
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/playlists/${id}?fields=name%2Cimages%28url%29%2C+id`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }
-
-      const json = await response.json();
-      resolve(json);
-    } catch (error) {
-      reject(error);
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  });
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
 export default function SpotifyUI(props) {
@@ -112,7 +109,7 @@ export default function SpotifyUI(props) {
 
   useEffect(() => {
     loadSpotify();
-  }, [loadSpotify])
+  }, [loadSpotify]);
 
   function navigateScreens(screen) {
     setActiveScreen(screen);
