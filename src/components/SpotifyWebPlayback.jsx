@@ -24,6 +24,9 @@ export default function SpotifyWebPlayback(props) {
   const volumeSlider = useRef(null);
 
   /* eslint-disable react-hooks/exhaustive-deps */
+  /* We don't need to trigger this effect multiple times. 
+     The use of props is so that other components can use 
+     elements from the SpotifyWebPlaybackSDK */
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -36,11 +39,13 @@ export default function SpotifyWebPlayback(props) {
         name: "infotainment",
         getOAuthToken: async (cb) => {
           var OAuthToken = props.tokenInfo.token;
-          
+
           // check if token has expired
           if (new Date().getTime() > props.tokenInfo.expiresIn) {
             // console.log("token has expired my g, refreshing rn");
-            const response = await fetch("/auth/refresh-token").catch(handleError);
+            const response = await fetch("/auth/refresh-token").catch(
+              handleError
+            );
             if (response.ok) {
               const json = await response.json();
               // console.log('RECEIVED REFRESH REQUEST')
@@ -53,7 +58,7 @@ export default function SpotifyWebPlayback(props) {
                 expiresIn: new Date().getTime() + json.expires_in * 1000,
               }));
               // console.log("new token:", json.access_token)
-              OAuthToken = json.access_token
+              OAuthToken = json.access_token;
             } else {
               return Promise.reject(response);
             }
