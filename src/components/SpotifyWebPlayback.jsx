@@ -23,7 +23,7 @@ export default function SpotifyWebPlayback(props) {
   const muteButton = useRef(null);
   const volumeSlider = useRef(null);
 
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -108,6 +108,7 @@ export default function SpotifyWebPlayback(props) {
       }
     };
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   function updateVolume(event) {
     if (props.player) {
