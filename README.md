@@ -61,6 +61,6 @@ A website built using React meant to display your information and allow you to l
 <img src="./images/Cap6.png"/>
 
 ## Built With 🔨
-* React
-* Express JS
-* Vite
+* React - Frontend
+* Express JS - Backend
+* Vite - Code Bundling & Packaging
