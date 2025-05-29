@@ -13,7 +13,7 @@ export default function DateTimeWeather({ zipcode }) {
         // console.log(zip, "exiting...")
         return;
       }
-      const response = await fetch(`https://www.zippopotam.us/us/${zip}`);
+      const response = await fetch(`https://api.zippopotam.us/us/${zip}`);
       if (response.ok) {
         const json = await response.json();
         // console.log(json)
@@ -23,8 +23,8 @@ export default function DateTimeWeather({ zipcode }) {
         });
         setIsValidZip(true);
       }
+      console.log("invalid response")
     }
-
     getZipcode(zipcode);
   }, [zipcode]);
 
