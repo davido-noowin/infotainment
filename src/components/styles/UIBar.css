@@ -48,9 +48,15 @@
     height: 125px;
 }
 
-h2 {
-    font-size: 28px;
+.ui-bar-header-title {
+    font-size: 22px;
     color: #DDDDDD;
+    font-weight: 800;
+}
+
+.ui-bar-header-tag {
+    font-size: 20px;
+    font-weight: 500;
 }
 
 img {

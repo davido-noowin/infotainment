@@ -109,7 +109,7 @@ export default function UIBar({
       {sideBarOpen ? (
         <div className="ui-bar">
           <div className="ui-bar-header">
-            <h2>infotainment</h2>
+            <h2 className="ui-bar-header-title">infotainment</h2>
             <div className="button-array">
               <button onClick={handleSideBarChange}>
                 <img src={closeUIButton} />
@@ -136,7 +136,7 @@ export default function UIBar({
             focusedVideoID={videoIDFromSelector}
           />
           <div className="volume-control">
-            <h2>Ambient Noise</h2>
+            <h2 className="ui-bar-header-tag">Ambient Noise</h2>
             <VolumeSlider
               refs={{ muteButton: muteButton, slider: volumeSlider }}
               component="UIBar"
@@ -147,7 +147,7 @@ export default function UIBar({
             />
           </div>
           <div className="weather-input">
-            <h2>Zip Code for Weather</h2>
+            <h2 className="ui-bar-header-tag">Zip Code for Weather</h2>
             <form id="zip-form" action={processZip}>
               <input
                 id="zipcode-input"
